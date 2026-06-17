@@ -1,0 +1,369 @@
+@import "tailwindcss";
+
+/* ─── Journal Design Tokens ──────────────────────────────────────── */
+:root {
+  --color-bg-cream:        #FFFBF5;
+  --color-bg-warm:         #FFF5EC;
+  --color-bg-card:         #FFFFFF;
+
+  --color-primary:         #5B7FA6;
+  --color-primary-dark:    #3D6089;
+  --color-primary-light:   #D6E4F0;
+
+  --color-cta:             #E8643C;
+  --color-cta-dark:        #C44D27;
+  --color-cta-light:       #FDEAE3;
+
+  --color-accent:          #F4A261;
+  --color-accent-light:    #FEF3E8;
+
+  --color-sage:            #6BAE8E;
+  --color-sage-light:      #E4F4EC;
+
+  --color-ink:             #3D2C2C;
+  --color-ink-mid:         #5C4A3A;
+  --color-ink-muted:       #8A7060;
+  --color-ink-faint:       #B5A090;
+
+  --color-border:          #E8D5C4;
+  --color-border-soft:     #F0E4D7;
+
+  --shadow-card:           3px 3px 0 #E8D5C4;
+  --shadow-card-hover:     5px 5px 0 #D4B8A8;
+  --shadow-btn:            2px 2px 0 #D4B8A8;
+
+  --font-hand:             'Caveat', cursive;
+  --font-body:             'Nunito', system-ui, sans-serif;
+}
+
+/* ─── Tailwind v4 Theme Registration ─────────────────────────────── */
+@theme {
+  --color-cream:           #FFFBF5;
+  --color-warm:            #FFF5EC;
+  --color-journal-primary: #5B7FA6;
+  --color-journal-primary-dark: #3D6089;
+  --color-journal-primary-light: #D6E4F0;
+  --color-journal-cta:     #E8643C;
+  --color-journal-cta-dark: #C44D27;
+  --color-journal-cta-light: #FDEAE3;
+  --color-journal-accent:  #F4A261;
+  --color-journal-sage:    #6BAE8E;
+  --color-journal-sage-light: #E4F4EC;
+  --color-ink:             #3D2C2C;
+  --color-ink-mid:         #5C4A3A;
+  --color-ink-muted:       #8A7060;
+  --color-ink-faint:       #B5A090;
+  --color-border-warm:     #E8D5C4;
+  --color-border-soft:     #F0E4D7;
+  --font-family-hand:      'Caveat', cursive;
+  --font-family-body:      'Nunito', system-ui, sans-serif;
+}
+
+/* ─── Global Base ─────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--color-ink);
+  background-color: var(--color-bg-cream);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+@layer components {
+
+/* ─── Journal Card ────────────────────────────────────────────────── */
+.journal-card {
+  background-color: var(--color-bg-card);
+  border: 1.5px solid var(--color-border);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.journal-card:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-2px);
+}
+
+/* ─── Stamp Button — Primary (terracotta) ────────────────────────── */
+.stamp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.5rem;
+  background-color: var(--color-cta);
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.9rem;
+  border-radius: 9999px;
+  border: 1.5px solid var(--color-cta-dark);
+  box-shadow: var(--shadow-btn);
+  transition: box-shadow 0.15s ease, transform 0.15s ease, background-color 0.15s ease;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.stamp-btn:hover {
+  background-color: var(--color-cta-dark);
+  box-shadow: none;
+  transform: translate(2px, 2px);
+}
+.stamp-btn:disabled,
+.stamp-btn[disabled] {
+  opacity: 0.55;
+  cursor: not-allowed;
+  box-shadow: var(--shadow-btn);
+  transform: none;
+}
+
+/* ─── Stamp Button — Outline (muted blue) ────────────────────────── */
+.stamp-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.5rem;
+  background-color: transparent;
+  color: var(--color-primary);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.9rem;
+  border-radius: 9999px;
+  border: 1.5px solid var(--color-primary);
+  box-shadow: var(--shadow-btn);
+  transition: box-shadow 0.15s ease, transform 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.stamp-btn-outline:hover {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  box-shadow: none;
+  transform: translate(2px, 2px);
+}
+
+/* ─── Stamp Button — Sage (success/submit) ───────────────────────── */
+.stamp-btn-sage {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.5rem;
+  background-color: var(--color-sage);
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.9rem;
+  border-radius: 9999px;
+  border: 1.5px solid #4D9070;
+  box-shadow: 2px 2px 0 #4D9070;
+  transition: box-shadow 0.15s ease, transform 0.15s ease, background-color 0.15s ease;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.stamp-btn-sage:hover {
+  background-color: #4D9070;
+  box-shadow: none;
+  transform: translate(2px, 2px);
+}
+.stamp-btn-sage:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ─── Handwritten Heading ─────────────────────────────────────────── */
+.hand-heading {
+  font-family: var(--font-hand);
+  font-weight: 600;
+  color: var(--color-ink);
+  line-height: 1.2;
+}
+
+/* ─── Section label (small caps) ────────────────────────────────── */
+.journal-label {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-cta);
+}
+
+/* ─── Warm section background ─────────────────────────────────────── */
+.section-warm {
+  background-color: var(--color-bg-warm);
+}
+
+/* ─── Journal Input ───────────────────────────────────────────────── */
+.journal-input {
+  width: 100%;
+  padding: 0.625rem 0.875rem;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--color-ink);
+  background-color: var(--color-bg-card);
+  border: 1.5px solid var(--color-border);
+  border-radius: 0.75rem;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.journal-input::placeholder {
+  color: var(--color-ink-faint);
+}
+.journal-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+.journal-input.error {
+  border-color: #D45050;
+}
+
+/* ─── Journal Tag (filter chip) ──────────────────────────────────── */
+.journal-tag {
+  padding: 0.3rem 0.875rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  border: 1.5px solid var(--color-border);
+  background-color: var(--color-bg-card);
+  color: var(--color-ink-muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+.journal-tag:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+.journal-tag.active {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #ffffff;
+}
+
+/* ─── Journal Tab ─────────────────────────────────────────────────── */
+.journal-tab {
+  padding: 0 0 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  border-bottom: 2.5px solid transparent;
+  color: var(--color-ink-muted);
+  transition: color 0.15s ease, border-color 0.15s ease;
+  cursor: pointer;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+.journal-tab.active {
+  border-bottom-color: var(--color-cta);
+  color: var(--color-ink);
+}
+.journal-tab:hover:not(.active) {
+  color: var(--color-ink);
+}
+
+/* ─── Wavy Dividers ───────────────────────────────────────────────── */
+.wavy-divider {
+  width: 100%;
+  height: 52px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 52' preserveAspectRatio='none'%3E%3Cpath fill='%23FFF5EC' d='M0,26 C180,52 360,0 540,26 C720,52 900,0 1080,26 C1260,52 1380,10 1440,26 L1440,52 L0,52 Z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  flex-shrink: 0;
+}
+.wavy-divider-cream {
+  width: 100%;
+  height: 52px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 52' preserveAspectRatio='none'%3E%3Cpath fill='%23FFFBF5' d='M0,26 C180,52 360,0 540,26 C720,52 900,0 1080,26 C1260,52 1380,10 1440,26 L1440,52 L0,52 Z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  flex-shrink: 0;
+}
+
+/* ─── Hero doodle dot texture ─────────────────────────────────────── */
+.hero-doodle-bg {
+  background-image:
+    radial-gradient(circle, rgba(232, 213, 196, 0.6) 1.5px, transparent 1.5px),
+    radial-gradient(circle, rgba(244, 162, 97, 0.35) 1px, transparent 1px);
+  background-size: 44px 44px, 66px 66px;
+  background-position: 0 0, 22px 22px;
+}
+
+/* ─── Doodle decoratives ──────────────────────────────────────────── */
+
+/* Tiny ✦ star before label text */
+.doodle-label::before {
+  content: '✦ ';
+  color: var(--color-accent);
+  font-size: 0.7em;
+}
+
+/* Rough circle border (wraps an element) */
+.doodle-ring {
+  outline: none;
+  box-shadow:
+    0 0 0 2px var(--color-border),
+    2px 2px 0 3px var(--color-border-soft),
+    -1px -1px 0 2px var(--color-border);
+  border-radius: 50%;
+}
+
+/* Scattered tiny dots background for section decoration */
+.doodle-scatter-bg {
+  background-image:
+    radial-gradient(circle, var(--color-border) 1.5px, transparent 1.5px),
+    radial-gradient(circle, var(--color-accent) 1px, transparent 1px);
+  background-size: 36px 36px, 54px 54px;
+  background-position: 0 0, 18px 18px;
+}
+
+/* Pin marker dot */
+.doodle-pin-dot::before {
+  content: '●';
+  font-size: 0.45em;
+  vertical-align: middle;
+  margin-right: 0.35em;
+  color: var(--color-cta);
+  line-height: 1;
+}
+
+/* ─── Hand-drawn underline accent ────────────────────────────────── */
+.hand-underline {
+  position: relative;
+  display: inline-block;
+}
+.hand-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 10' preserveAspectRatio='none'%3E%3Cpath d='M2,6 C40,2 80,9 120,4 C160,0 182,7 198,5' stroke='%23E8643C' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  pointer-events: none;
+}
+
+} /* end @layer components */
