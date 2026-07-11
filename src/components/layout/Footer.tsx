@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Compass, Phone, Mail, MapPin, Share2, Users, AtSign, PlayCircle } from 'lucide-react';
+import { Phone, Mail, MapPin, Share2, Users, AtSign, PlayCircle } from 'lucide-react';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -11,8 +11,8 @@ export function Footer() {
           {/* Column 1: About */}
           <div>
             <Link to="/" className="flex items-center gap-2 mb-4">
-              <Compass size={24} style={{ color: '#F4A261' }} />
-              <span className="text-lg" style={{ color: '#FFF5EC', fontFamily: 'Caveat, cursive', fontWeight: 700 }}>Safarnama</span>
+              <img src="/logo.png" alt="Window Seat" className="h-8 w-8 object-contain" />
+              <span className="text-lg" style={{ color: '#FFF5EC', fontFamily: 'Caveat, cursive', fontWeight: 700 }}>Window Seat</span>
             </Link>
             <p className="text-sm leading-relaxed" style={{ color: '#A08070' }}>
               Crafting unforgettable journeys across India's most beautiful destinations. Personalized travel, seamless experiences.
@@ -85,7 +85,7 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-2 text-sm" style={{ color: '#A08070' }}>
                 <Mail size={16} className="shrink-0" style={{ color: '#F4A261' }} />
-                <a href="mailto:hello@safarnama.com" className="transition-colors hover:text-[#F4A261]">hello@safarnama.com</a>
+                <a href="mailto:hello@windowseat.com" className="transition-colors hover:text-[#F4A261]">hello@windowseat.com</a>
               </li>
             </ul>
           </div>
@@ -95,7 +95,7 @@ export function Footer() {
       {/* Bottom bar */}
       <div style={{ borderTop: '1px solid #3D2C2C' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs" style={{ color: '#7A6050' }}>
-          <p>© {currentYear} Safarnama. All rights reserved.</p>
+          <p>© {currentYear} Window Seat. All rights reserved.</p>
           <p>Prices are indicative and subject to confirmation. GST @5% applicable.</p>
         </div>
       </div>

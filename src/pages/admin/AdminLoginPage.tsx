@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
-import { Compass, Lock } from 'lucide-react';
+import { Lock } from 'lucide-react';
 import { useAdminAuthStore } from '../../store/adminAuthStore';
 
 export function AdminLoginPage() {
@@ -35,10 +35,10 @@ export function AdminLoginPage() {
       <div className="w-full max-w-md">
         {/* Logo area */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-14 h-14 bg-blue-600 rounded-2xl mb-4 shadow-lg">
-            <Compass size={28} className="text-white" />
+          <div className="inline-flex items-center justify-center w-14 h-14 bg-blue-600 rounded-2xl mb-4 shadow-lg overflow-hidden">
+            <img src="/logo.png" alt="Window Seat" className="w-10 h-10 object-contain" />
           </div>
-          <h1 className="text-2xl font-bold text-white">Safarnama</h1>
+          <h1 className="text-2xl font-bold text-white">Window Seat</h1>
           <p className="text-slate-400 text-sm mt-1">Admin Panel</p>
         </div>
 

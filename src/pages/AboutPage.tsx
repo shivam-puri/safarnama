@@ -18,7 +18,7 @@ export function AboutPage() {
         <DoodleStar size={14} color="#FFFBF5" className="absolute left-1/4 bottom-6 hidden md:block pointer-events-none" opacity={0.3} />
         <div className="max-w-4xl mx-auto text-center relative">
           <p className="journal-label mb-3" style={{ color: '#F4A261' }}>Our story</p>
-          <h1 className="text-3xl md:text-4xl font-bold mb-4" style={{ fontFamily: 'Caveat, cursive' }}>About Safarnama</h1>
+          <h1 className="text-3xl md:text-4xl font-bold mb-4" style={{ fontFamily: 'Caveat, cursive' }}>About Window Seat</h1>
           <div className="flex justify-center mb-4">
             <DoodleWave width={160} color="#F4A261" opacity={0.5} />
           </div>
@@ -35,7 +35,7 @@ export function AboutPage() {
             <div>
               <h2 className="text-2xl font-bold mb-4" style={{ color: '#3D2C2C', fontFamily: 'Caveat, cursive', fontSize: '1.75rem' }}>Our Story</h2>
               <p className="leading-relaxed mb-4" style={{ color: '#5C4A3A' }}>
-                Founded in 2019, Safarnama was born from a frustration with one-size-fits-all tour packages. We wanted to offer travelers the ability to truly personalize their Indian adventures — choosing their own hotels, activities, and transport — while seeing real prices upfront.
+                Founded in 2019, Window Seat was born from a frustration with one-size-fits-all tour packages. We wanted to offer travelers the ability to truly personalize their Indian adventures — choosing their own hotels, activities, and transport — while seeing real prices upfront.
               </p>
               <p className="leading-relaxed" style={{ color: '#5C4A3A' }}>
                 Today, we've helped over 5,000 families, couples, and solo travellers experience the magic of India on their own terms. From the snow-capped peaks of Kashmir to the backwaters of Kerala, we craft journeys that reflect who you are.

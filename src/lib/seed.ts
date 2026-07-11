@@ -214,7 +214,7 @@ const defaultCmsContent: CmsContentItem[] = [
     key: 'terms_and_conditions',
     title: 'Terms & Conditions',
     content: `<h2>Terms and Conditions</h2>
-<p>Welcome to Safarnama. By booking with us, you agree to the following terms and conditions.</p>
+<p>Welcome to Window Seat. By booking with us, you agree to the following terms and conditions.</p>
 
 <h3>1. Booking Policy</h3>
 <p>All bookings are subject to availability. A minimum deposit of 25% is required to confirm any booking.</p>
@@ -226,7 +226,7 @@ const defaultCmsContent: CmsContentItem[] = [
 <p>All prices shown are indicative and subject to confirmation. Final prices will be communicated upon booking confirmation.</p>
 
 <h3>4. Liability</h3>
-<p>Safarnama acts as an agent for transportation and hotel companies. We are not responsible for any injury, damage, loss, or delay caused by the negligence of service providers.</p>`,
+<p>Window Seat acts as an agent for transportation and hotel companies. We are not responsible for any injury, damage, loss, or delay caused by the negligence of service providers.</p>`,
     updatedAt: new Date().toISOString(),
   },
   {
@@ -251,7 +251,7 @@ const defaultCmsContent: CmsContentItem[] = [
     key: 'privacy_policy',
     title: 'Privacy Policy',
     content: `<h2>Privacy Policy</h2>
-<p>At Safarnama, we are committed to protecting your personal information.</p>
+<p>At Window Seat, we are committed to protecting your personal information.</p>
 
 <h3>Information We Collect</h3>
 <p>We collect information you provide directly to us, such as your name, email, phone number, and travel preferences.</p>
@@ -263,8 +263,8 @@ const defaultCmsContent: CmsContentItem[] = [
   {
     key: 'about_us',
     title: 'About Us',
-    content: `<h2>About Safarnama</h2>
-<p>Safarnama is a premium travel company specializing in customized itineraries across India's most beautiful destinations.</p>
+    content: `<h2>About Window Seat</h2>
+<p>Window Seat is a premium travel company specializing in customized itineraries across India's most beautiful destinations.</p>
 
 <p>Founded with a passion for authentic travel experiences, we believe every journey should be as unique as the traveler. Our team of experienced travel designers crafts personalized itineraries that blend adventure, culture, and comfort.</p>
 
@@ -288,7 +288,7 @@ const defaultCmsContent: CmsContentItem[] = [
 ];
 
 const defaultSettings: SiteSetting[] = [
-  { key: 'company_name', label: 'Company Name', value: 'Safarnama', category: 'general' },
+  { key: 'company_name', label: 'Company Name', value: 'Window Seat', category: 'general' },
   { key: 'tagline', label: 'Tagline', value: 'Discover India, Your Way', category: 'general' },
   { key: 'contact_phone', label: 'Phone', value: '+91 98765 43210', category: 'contact' },
   { key: 'contact_email', label: 'Email', value: 'hello@somiltravel.com', category: 'contact' },

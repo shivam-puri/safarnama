@@ -11,7 +11,6 @@ import {
   BookOpen,
   Settings,
   LogOut,
-  Compass,
 } from 'lucide-react';
 import { useAdminAuthStore } from '../../store/adminAuthStore';
 
@@ -62,11 +61,9 @@ export function AdminLayout() {
       <aside className="w-60 bg-slate-800 flex flex-col flex-shrink-0 overflow-y-auto">
         {/* Logo */}
         <div className="flex items-center gap-3 px-5 py-5 border-b border-slate-700">
-          <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-            <Compass size={18} className="text-white" />
-          </div>
+          <img src="/logo.png" alt="Window Seat" className="w-8 h-8 object-contain" />
           <div>
-            <p className="text-white font-bold text-sm">Safarnama</p>
+            <p className="text-white font-bold text-sm">Window Seat</p>
             <p className="text-slate-400 text-xs">Admin Panel</p>
           </div>
         </div>

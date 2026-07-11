@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Compass, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 interface NavbarProps {
   transparent?: boolean;
@@ -19,7 +19,6 @@ export function Navbar({ transparent = false }: NavbarProps) {
 
   const isTransparent = transparent && !scrolled;
   const textColor = isTransparent ? 'text-white' : 'text-[#5C4A3A]';
-  const logoColor = isTransparent ? 'text-white' : 'text-[#5B7FA6]';
 
   const navLinks = [
     { href: '/destinations', label: 'Destinations' },
@@ -37,8 +36,8 @@ export function Navbar({ transparent = false }: NavbarProps) {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
-            <Compass size={28} className={`${logoColor} group-hover:rotate-45 transition-transform duration-300`} />
-            <span className={`text-xl font-bold ${logoColor}`} style={{ fontFamily: 'Caveat, cursive' }}>Safarnama</span>
+            <img src="/logo.png" alt="Window Seat" className="h-9 w-9 object-contain transition-transform duration-300 group-hover:scale-105" />
+            <span className={`text-2xl font-bold ${textColor}`} style={{ fontFamily: 'Caveat, cursive' }}>Window Seat</span>
           </Link>
 
           {/* Desktop nav */}
