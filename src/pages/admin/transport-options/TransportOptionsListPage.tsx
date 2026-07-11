@@ -9,6 +9,7 @@ import { StatusBadge } from '../../../components/admin/ui/StatusBadge';
 import { ConfirmDialog } from '../../../components/admin/ui/ConfirmDialog';
 import { ToastContainer } from '../../../components/admin/ui/Toast';
 import { useToast } from '../../../components/admin/ui/useToast';
+import { TableSkeleton } from '../../../components/common/LoadingSkeleton';
 
 const priceTypeLabel: Record<string, string> = {
   per_trip_flat: 'Per Trip (Flat)',
@@ -52,7 +53,7 @@ export function TransportOptionsListPage() {
       <AdminCard>
         <div className="overflow-x-auto">
           {loading ? (
-            <p className="text-center text-slate-500 text-sm py-10">Loading...</p>
+            <TableSkeleton rows={5} cols={6} />
           ) : (options as any[]).length === 0 ? (
             <p className="text-center text-slate-500 text-sm py-10">No transport options found.</p>
           ) : (

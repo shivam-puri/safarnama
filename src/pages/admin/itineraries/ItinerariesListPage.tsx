@@ -9,6 +9,7 @@ import { StatusBadge } from '../../../components/admin/ui/StatusBadge';
 import { ConfirmDialog } from '../../../components/admin/ui/ConfirmDialog';
 import { ToastContainer } from '../../../components/admin/ui/Toast';
 import { useToast } from '../../../components/admin/ui/useToast';
+import { TableSkeleton } from '../../../components/common/LoadingSkeleton';
 
 export function ItinerariesListPage() {
   const [filterDest, setFilterDest] = useState('');
@@ -79,7 +80,7 @@ export function ItinerariesListPage() {
 
         <div className="overflow-x-auto">
           {loading ? (
-            <p className="text-center text-slate-500 text-sm py-10">Loading...</p>
+            <TableSkeleton rows={6} cols={8} />
           ) : filtered.length === 0 ? (
             <p className="text-center text-slate-500 text-sm py-10">No itineraries found.</p>
           ) : (

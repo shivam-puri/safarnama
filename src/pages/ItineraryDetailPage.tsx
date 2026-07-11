@@ -7,6 +7,7 @@ import { InclusionsList } from '../components/itinerary/InclusionsList';
 import { ReviewCard } from '../components/common/ReviewCard';
 import { Badge } from '../components/common/Badge';
 import { useAsync } from '../hooks/useAsync';
+import { DetailPageSkeleton } from '../components/common/LoadingSkeleton';
 
 function formatCurrency(amount: number) {
   return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(amount);
@@ -82,7 +83,7 @@ export function ItineraryDetailPage() {
   }
 
   if (loading) {
-    return <div className="min-h-screen flex items-center justify-center" style={{ color: '#B5A090' }}>Loading...</div>;
+    return <DetailPageSkeleton />;
   }
 
   if (!itinerary) return <Navigate to="/destinations" replace />;

@@ -6,12 +6,26 @@ import { AdminCard } from '../../../components/admin/ui/AdminCard';
 import { ToastContainer } from '../../../components/admin/ui/Toast';
 import { useToast } from '../../../components/admin/ui/useToast';
 
+function SettingsSkeleton() {
+  return (
+    <div className="space-y-5 max-w-2xl animate-pulse">
+      {Array.from({ length: 3 }).map((_, i) => (
+        <div key={i} className="bg-white rounded-xl border border-slate-200 shadow-sm p-6 space-y-4">
+          <div className="h-4 bg-slate-200 rounded w-24" />
+          <div className="h-9 bg-slate-100 rounded-lg" />
+          <div className="h-9 bg-slate-100 rounded-lg" />
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export function SettingsPage() {
   const { toasts, addToast, removeToast } = useToast();
   const [edits, setEdits] = useState<Record<string, string | number>>({});
   const [saving, setSaving] = useState(false);
 
-  const { data: result, refetch } = useAsync(() => adminApi.getSettings(), []);
+  const { data: result, loading, refetch } = useAsync(() => adminApi.getSettings(), []);
   const settings = result?.data ?? [];
 
   const getValue = (key: string) => {
@@ -48,6 +62,7 @@ export function SettingsPage() {
       <ToastContainer toasts={toasts} onRemove={removeToast} />
       <PageHeader title="Site Settings" subtitle="Manage global configuration" />
 
+      {loading ? <SettingsSkeleton /> : (
       <div className="space-y-5 max-w-2xl">
         <AdminCard title="General">
           <div className="p-6 space-y-4">
@@ -126,6 +141,7 @@ export function SettingsPage() {
           </button>
         </div>
       </div>
+      )}
     </div>
   );
 }

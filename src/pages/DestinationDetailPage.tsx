@@ -7,6 +7,7 @@ import { ReviewCard } from '../components/common/ReviewCard';
 import { Badge } from '../components/common/Badge';
 import { useAsync } from '../hooks/useAsync';
 import { publicApi } from '../lib/api';
+import { DetailPageSkeleton } from '../components/common/LoadingSkeleton';
 
 export function DestinationDetailPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -16,7 +17,7 @@ export function DestinationDetailPage() {
   const { data: reviews } = useAsync(() => publicApi.getReviewsByDestination(slug!), [slug]);
 
   if (loading) {
-    return <div className="min-h-screen flex items-center justify-center" style={{ color: '#B5A090' }}>Loading...</div>;
+    return <DetailPageSkeleton />;
   }
 
   if (!destData) return <Navigate to="/destinations" replace />;

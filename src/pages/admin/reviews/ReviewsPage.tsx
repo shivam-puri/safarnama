@@ -6,6 +6,7 @@ import { StatusBadge } from '../../../components/admin/ui/StatusBadge';
 import { ToastContainer } from '../../../components/admin/ui/Toast';
 import { useToast } from '../../../components/admin/ui/useToast';
 import { Star } from 'lucide-react';
+import { CardSkeletonGrid, TableSkeleton } from '../../../components/common/LoadingSkeleton';
 
 function RatingDisplay({ rating }: { rating: number }) {
   return (
@@ -21,7 +22,7 @@ export function ReviewsPage() {
   const [tab, setTab] = useState<'pending' | 'moderated'>('pending');
   const { toasts, addToast, removeToast } = useToast();
 
-  const { data: result, refetch } = useAsync(() => adminApi.getReviews(), []);
+  const { data: result, loading, refetch } = useAsync(() => adminApi.getReviews(), []);
   const reviews = result?.data ?? [];
 
   const pending = (reviews as any[]).filter((r: any) => r.status === 'pending');
@@ -74,7 +75,9 @@ export function ReviewsPage() {
       </div>
 
       {tab === 'pending' && (
-        pending.length === 0 ? (
+        loading ? (
+          <CardSkeletonGrid count={4} className="grid grid-cols-1 md:grid-cols-2 gap-4" />
+        ) : pending.length === 0 ? (
           <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-10 text-center text-slate-500 text-sm">
             No pending reviews. All caught up!
           </div>
@@ -113,7 +116,9 @@ export function ReviewsPage() {
 
       {tab === 'moderated' && (
         <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-x-auto">
-          {moderated.length === 0 ? (
+          {loading ? (
+            <TableSkeleton rows={5} cols={4} />
+          ) : moderated.length === 0 ? (
             <p className="text-center text-slate-500 text-sm py-10">No moderated reviews yet.</p>
           ) : (
             <table className="w-full">

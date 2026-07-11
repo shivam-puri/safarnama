@@ -6,6 +6,7 @@ import { useAsync } from '../../../hooks/useAsync';
 import { PageHeader } from '../../../components/admin/ui/PageHeader';
 import { AdminCard } from '../../../components/admin/ui/AdminCard';
 import { StatusBadge } from '../../../components/admin/ui/StatusBadge';
+import { TableSkeleton } from '../../../components/common/LoadingSkeleton';
 
 const STATUSES = ['new', 'contacted', 'qualified', 'converted', 'lost', 'spam'] as const;
 
@@ -32,7 +33,7 @@ export function LeadsListPage() {
         </div>
         <div className="overflow-x-auto">
           {loading ? (
-            <p className="text-center text-slate-500 text-sm py-10">Loading...</p>
+            <TableSkeleton rows={6} cols={8} />
           ) : filtered.length === 0 ? (
             <p className="text-center text-slate-500 text-sm py-10">No leads found.</p>
           ) : (

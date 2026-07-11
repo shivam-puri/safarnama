@@ -5,13 +5,34 @@ import { PageHeader } from '../../../components/admin/ui/PageHeader';
 import { ToastContainer } from '../../../components/admin/ui/Toast';
 import { useToast } from '../../../components/admin/ui/useToast';
 
+function CmsSkeleton() {
+  return (
+    <div className="flex gap-6 bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden animate-pulse" style={{ minHeight: '500px' }}>
+      <div className="w-56 border-r border-slate-200 flex-shrink-0">
+        <div className="p-4 border-b border-slate-100">
+          <div className="h-3 bg-slate-200 rounded w-24" />
+        </div>
+        <div className="p-2 space-y-2">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className="h-8 bg-slate-100 rounded-lg mx-2" />
+          ))}
+        </div>
+      </div>
+      <div className="flex-1 p-6 space-y-4">
+        <div className="h-5 bg-slate-200 rounded w-1/3" />
+        <div className="h-64 bg-slate-100 rounded-lg" />
+      </div>
+    </div>
+  );
+}
+
 export function CmsPage() {
   const [selectedKey, setSelectedKey] = useState<string | null>(null);
   const { toasts, addToast, removeToast } = useToast();
   const [editContent, setEditContent] = useState<Record<string, string>>({});
   const [saving, setSaving] = useState(false);
 
-  const { data: result, refetch } = useAsync(() => adminApi.getAllCmsContent(), []);
+  const { data: result, loading, refetch } = useAsync(() => adminApi.getAllCmsContent(), []);
   const contentList = result?.data ?? [];
 
   const activeKey = selectedKey ?? (contentList as any[])[0]?.key;
@@ -43,6 +64,7 @@ export function CmsPage() {
       <ToastContainer toasts={toasts} onRemove={removeToast} />
       <PageHeader title="CMS Content" subtitle="Manage static content pages" />
 
+      {loading ? <CmsSkeleton /> : (
       <div className="flex gap-6 bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden" style={{ minHeight: '500px' }}>
         <div className="w-56 border-r border-slate-200 flex-shrink-0">
           <div className="p-4 border-b border-slate-100">
@@ -94,6 +116,7 @@ export function CmsPage() {
           )}
         </div>
       </div>
+      )}
     </div>
   );
 }

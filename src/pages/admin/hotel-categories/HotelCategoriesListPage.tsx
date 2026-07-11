@@ -9,6 +9,7 @@ import { StatusBadge } from '../../../components/admin/ui/StatusBadge';
 import { ConfirmDialog } from '../../../components/admin/ui/ConfirmDialog';
 import { ToastContainer } from '../../../components/admin/ui/Toast';
 import { useToast } from '../../../components/admin/ui/useToast';
+import { TableSkeleton } from '../../../components/common/LoadingSkeleton';
 
 export function HotelCategoriesListPage() {
   const [deleteId, setDeleteId] = useState<string | null>(null);
@@ -46,7 +47,7 @@ export function HotelCategoriesListPage() {
       <AdminCard>
         <div className="overflow-x-auto">
           {loading ? (
-            <p className="text-center text-slate-500 text-sm py-10">Loading...</p>
+            <TableSkeleton rows={5} cols={6} />
           ) : categories.length === 0 ? (
             <p className="text-center text-slate-500 text-sm py-10">No hotel categories found.</p>
           ) : (

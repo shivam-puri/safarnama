@@ -3,6 +3,7 @@ import { useParams, Navigate } from 'react-router-dom';
 import { Navbar } from '../components/layout/Navbar';
 import { CustomizerWizard } from '../components/customizer/CustomizerWizard';
 import { useCustomizerStore } from '../store/customizerStore';
+import { WizardSkeleton } from '../components/common/LoadingSkeleton';
 
 export function CustomizePage() {
   const { itineraryId } = useParams<{ itineraryId: string }>();
@@ -18,9 +19,7 @@ export function CustomizePage() {
     return (
       <div>
         <Navbar />
-        <div className="pt-16 min-h-screen flex items-center justify-center text-gray-400">
-          Loading itinerary...
-        </div>
+        <WizardSkeleton />
       </div>
     );
   }

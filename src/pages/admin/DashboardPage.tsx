@@ -5,6 +5,7 @@ import { adminApi } from '../../lib/api';
 import { StatusBadge } from '../../components/admin/ui/StatusBadge';
 import { useToast } from '../../components/admin/ui/useToast';
 import { ToastContainer } from '../../components/admin/ui/Toast';
+import { StatCardSkeleton, ListRowsSkeleton } from '../../components/common/LoadingSkeleton';
 
 function StatCard({ label, value, icon, sub, to }: { label: string; value: number; icon: React.ReactNode; sub?: string; to: string }) {
   return (
@@ -48,7 +49,26 @@ export function DashboardPage() {
       <div className="space-y-6">
         <div>
           <h1 className="text-2xl font-bold text-slate-900">Dashboard</h1>
-          <p className="text-sm text-slate-500 mt-0.5">Loading...</p>
+          <p className="text-sm text-slate-500 mt-0.5">Welcome back. Here's what's happening.</p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {Array.from({ length: 4 }).map((_, i) => <StatCardSkeleton key={i} />)}
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="bg-white rounded-xl border border-slate-200 shadow-sm">
+            <div className="px-6 py-4 border-b border-slate-100">
+              <div className="h-4 bg-slate-200 rounded w-28 animate-pulse" />
+            </div>
+            <ListRowsSkeleton rows={4} />
+          </div>
+          <div className="bg-white rounded-xl border border-slate-200 shadow-sm">
+            <div className="px-6 py-4 border-b border-slate-100">
+              <div className="h-4 bg-slate-200 rounded w-32 animate-pulse" />
+            </div>
+            <ListRowsSkeleton rows={4} />
+          </div>
         </div>
       </div>
     );

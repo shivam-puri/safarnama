@@ -7,6 +7,7 @@ import { AdminCard } from '../../../components/admin/ui/AdminCard';
 import { StatusBadge } from '../../../components/admin/ui/StatusBadge';
 import { ToastContainer } from '../../../components/admin/ui/Toast';
 import { useToast } from '../../../components/admin/ui/useToast';
+import { AdminDetailSkeleton } from '../../../components/common/LoadingSkeleton';
 
 const STATUSES = ['new', 'contacted', 'qualified', 'converted', 'lost', 'spam'] as const;
 type LeadStatus = typeof STATUSES[number];
@@ -22,7 +23,7 @@ export function LeadDetailPage() {
   const lead = result?.data ?? result;
 
   if (loading) {
-    return <p className="text-center text-slate-500 py-20">Loading...</p>;
+    return <AdminDetailSkeleton />;
   }
 
   if (!lead) {

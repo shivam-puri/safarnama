@@ -5,6 +5,7 @@ import { Navbar } from '../components/layout/Navbar';
 import { DestinationCard } from '../components/destination/DestinationCard';
 import { ItineraryCard } from '../components/itinerary/ItineraryCard';
 import { DoodlePlane, DoodleMountain, DoodleCompass, DoodleStar, DoodlePalmTree, DoodleDotPath } from '../components/common/Doodles';
+import { CardSkeletonGrid } from '../components/common/LoadingSkeleton';
 import { useAsync } from '../hooks/useAsync';
 import { publicApi, adminApi } from '../lib/api';
 
@@ -22,8 +23,8 @@ const HERO_IMAGES_MOBILE = [
 
 export function HomePage() {
   const [heroIndex, setHeroIndex] = useState(0);
-  const { data: destinations } = useAsync(() => publicApi.getDestinations(), []);
-  const { data: itinerariesData } = useAsync(() => adminApi.getItineraries({ isFeatured: true, limit: 6 }), []);
+  const { data: destinations, loading: destinationsLoading } = useAsync(() => publicApi.getDestinations(), []);
+  const { data: itinerariesData, loading: itinerariesLoading } = useAsync(() => adminApi.getItineraries({ isFeatured: true, limit: 6 }), []);
 
   const featuredItineraries = itinerariesData?.data ?? [];
 
@@ -132,11 +133,15 @@ export function HomePage() {
             </h2>
             <p className="mt-3 max-w-xl mx-auto" style={{ color: '#8A7060' }}>From Himalayan heights to Kerala's backwaters — India's most breathtaking places await.</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {(destinations ?? []).map((dest: any) => (
-              <DestinationCard key={dest._id ?? dest.id} destination={dest} />
-            ))}
-          </div>
+          {destinationsLoading ? (
+            <CardSkeletonGrid count={6} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" />
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {(destinations ?? []).map((dest: any) => (
+                <DestinationCard key={dest._id ?? dest.id} destination={dest} />
+              ))}
+            </div>
+          )}
           <div className="text-center mt-8">
             <Link to="/destinations" className="stamp-btn-outline px-6 py-2.5">
               View All Destinations <ArrowRight size={16} />
@@ -161,11 +166,15 @@ export function HomePage() {
               All Trips <ArrowRight size={14} />
             </Link>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {featuredItineraries.slice(0, 4).map((itn: any) => (
-              <ItineraryCard key={itn._id ?? itn.id} itinerary={itn} showCustomizeButton />
-            ))}
-          </div>
+          {itinerariesLoading ? (
+            <CardSkeletonGrid count={4} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5" />
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {featuredItineraries.slice(0, 4).map((itn: any) => (
+                <ItineraryCard key={itn._id ?? itn.id} itinerary={itn} showCustomizeButton />
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

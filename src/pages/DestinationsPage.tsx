@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import { Search, Filter } from 'lucide-react';
 import { DestinationCard } from '../components/destination/DestinationCard';
+import { CardSkeletonGrid } from '../components/common/LoadingSkeleton';
 import { DoodleMountain, DoodlePlane, DoodleStar } from '../components/common/Doodles';
 import { useAsync } from '../hooks/useAsync';
 import { publicApi } from '../lib/api';
@@ -70,7 +71,7 @@ export function DestinationsPage() {
         </div>
 
         {loading ? (
-          <div className="text-center py-16" style={{ color: '#B5A090' }}>Loading destinations...</div>
+          <CardSkeletonGrid count={6} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" />
         ) : (
           <>
             <p className="text-sm mb-4" style={{ color: '#8A7060' }}>
