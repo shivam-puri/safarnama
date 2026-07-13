@@ -50,7 +50,7 @@ export function ItinerariesListPage() {
     }
   }
 
-  async function handleToggle(id: string, field: 'isActive' | 'isFeatured', val: boolean) {
+  async function handleToggle(id: string, field: 'isActive' | 'isFeatured' | 'featuredOnHomepage', val: boolean) {
     try {
       await adminApi.updateItinerary(id, { [field]: !val });
       refetch();
@@ -80,7 +80,7 @@ export function ItinerariesListPage() {
 
         <div className="overflow-x-auto">
           {loading ? (
-            <TableSkeleton rows={6} cols={8} />
+            <TableSkeleton rows={6} cols={9} />
           ) : filtered.length === 0 ? (
             <p className="text-center text-slate-500 text-sm py-10">No itineraries found.</p>
           ) : (
@@ -93,6 +93,7 @@ export function ItinerariesListPage() {
                   <th className="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase">Duration</th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase">Base Price</th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase">Active</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase">Badge</th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase">Featured</th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase">Actions</th>
                 </tr>
@@ -119,6 +120,14 @@ export function ItinerariesListPage() {
                         className={`text-xs px-2 py-0.5 rounded-full ${itn.isFeatured ? 'bg-amber-100 text-amber-700' : 'bg-slate-100 text-slate-500'}`}
                       >
                         {itn.isFeatured ? 'Featured' : 'Normal'}
+                      </button>
+                    </td>
+                    <td className="px-4 py-3">
+                      <button
+                        onClick={() => handleToggle(itn.id, 'featuredOnHomepage', itn.featuredOnHomepage)}
+                        className={`text-xs px-2 py-0.5 rounded-full ${itn.featuredOnHomepage ? 'bg-blue-100 text-blue-700' : 'bg-slate-100 text-slate-500'}`}
+                      >
+                        {itn.featuredOnHomepage ? 'On Homepage' : 'No'}
                       </button>
                     </td>
                     <td className="px-4 py-3">

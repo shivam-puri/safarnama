@@ -20,4 +20,5 @@ export interface Destination {
   startingPrice: number;
   itineraryCount: number;
   isActive?: boolean;
+  isComingSoon?: boolean;
 }

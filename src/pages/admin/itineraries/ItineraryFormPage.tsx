@@ -23,7 +23,7 @@ type FormState = {
   allowActivityChange: boolean; allowRoomSharingChange: boolean; allowTravelerCountChange: boolean;
   defaultHotelCategoryId: string; defaultTransportOptionId: string; defaultRoomSharingType: string;
   availableHotelCategoryIds: string[]; availableTransportOptionIds: string[];
-  seoTitle: string; seoDescription: string; isActive: boolean; isFeatured: boolean; sortOrder: number;
+  seoTitle: string; seoDescription: string; isActive: boolean; isFeatured: boolean; featuredOnHomepage: boolean; sortOrder: number;
   slug: string;
 };
 
@@ -37,7 +37,7 @@ const defaultForm: FormState = {
   allowActivityChange: true, allowRoomSharingChange: true, allowTravelerCountChange: true,
   defaultHotelCategoryId: '', defaultTransportOptionId: '', defaultRoomSharingType: 'double',
   availableHotelCategoryIds: [], availableTransportOptionIds: [],
-  seoTitle: '', seoDescription: '', isActive: true, isFeatured: false, sortOrder: 0,
+  seoTitle: '', seoDescription: '', isActive: true, isFeatured: false, featuredOnHomepage: false, sortOrder: 0,
   slug: '',
 };
 
@@ -95,7 +95,7 @@ export function ItineraryFormPage() {
             defaultRoomSharingType: itn.customizationConfig?.defaultRoomSharingType ?? 'double',
             availableHotelCategoryIds: (itn.customizationConfig?.availableHotelCategoryIds ?? []).map((x: any) => x?._id ?? x?.id ?? x),
             availableTransportOptionIds: (itn.customizationConfig?.availableTransportOptionIds ?? []).map((x: any) => x?._id ?? x?.id ?? x),
-            seoTitle: '', seoDescription: '', isActive: itn.isActive, isFeatured: itn.isFeatured, sortOrder: 0,
+            seoTitle: '', seoDescription: '', isActive: itn.isActive, isFeatured: itn.isFeatured, featuredOnHomepage: itn.featuredOnHomepage ?? false, sortOrder: 0,
             slug: itn.slug,
           });
         }
@@ -209,6 +209,7 @@ export function ItineraryFormPage() {
       highlights: form.highlights.filter(Boolean),
       isActive: form.isActive,
       isFeatured: form.isFeatured,
+      featuredOnHomepage: form.featuredOnHomepage,
     };
 
     setSaving(true);
@@ -577,9 +578,19 @@ export function ItineraryFormPage() {
                   <input type="checkbox" checked={form.isActive} onChange={e => setForm(f => ({ ...f, isActive: e.target.checked }))} className="rounded" />
                   <span className="text-sm text-slate-700">Active (visible to customers)</span>
                 </label>
-                <label className="flex items-center gap-3 cursor-pointer">
-                  <input type="checkbox" checked={form.isFeatured} onChange={e => setForm(f => ({ ...f, isFeatured: e.target.checked }))} className="rounded" />
-                  <span className="text-sm text-slate-700">Featured on homepage</span>
+                <label className="flex items-start gap-3 cursor-pointer">
+                  <input type="checkbox" checked={form.isFeatured} onChange={e => setForm(f => ({ ...f, isFeatured: e.target.checked }))} className="rounded mt-0.5" />
+                  <span>
+                    <span className="block text-sm text-slate-700">Featured Badge</span>
+                    <span className="block text-xs text-slate-500 mt-0.5">Shows a "Featured" ribbon on the itinerary card and detail page.</span>
+                  </span>
+                </label>
+                <label className="flex items-start gap-3 cursor-pointer">
+                  <input type="checkbox" checked={form.featuredOnHomepage} onChange={e => setForm(f => ({ ...f, featuredOnHomepage: e.target.checked }))} className="rounded mt-0.5" />
+                  <span>
+                    <span className="block text-sm text-slate-700">Featured</span>
+                    <span className="block text-xs text-slate-500 mt-0.5">Included in the homepage's "Most Popular Trips" carousel.</span>
+                  </span>
                 </label>
               </div>
             </AdminCard>

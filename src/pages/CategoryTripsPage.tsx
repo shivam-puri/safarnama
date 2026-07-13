@@ -3,7 +3,7 @@ import { ArrowLeft } from 'lucide-react';
 import { ItineraryCard } from '../components/itinerary/ItineraryCard';
 import { CardSkeletonGrid } from '../components/common/LoadingSkeleton';
 import { useAsync } from '../hooks/useAsync';
-import { adminApi } from '../lib/api';
+import { publicApi } from '../lib/api';
 import { getCategoryMeta } from '../lib/categories';
 
 export function CategoryTripsPage() {
@@ -11,11 +11,11 @@ export function CategoryTripsPage() {
   const meta = getCategoryMeta(category ?? '');
 
   const { data: itinerariesData, loading } = useAsync(
-    () => adminApi.getItineraries({ category, isActive: true, limit: 50 }),
+    () => publicApi.getItineraries({ category, limit: 50 }),
     [category]
   );
 
-  const itineraries = (itinerariesData?.data ?? []).filter((itn: any) => itn.isActive !== false);
+  const itineraries = itinerariesData?.data ?? [];
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#FFFBF5' }}>

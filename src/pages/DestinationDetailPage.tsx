@@ -26,6 +26,10 @@ export function DestinationDetailPage() {
 
   // API returns { destination: {...}, itineraries: [...] }
   const destination = destData.destination ?? destData;
+
+  // Coming-soon destinations aren't open for browsing yet — bounce direct link visits.
+  if (destination.isComingSoon) return <Navigate to="/destinations" replace />;
+
   const itineraries = destData.itineraries ?? destination.itineraries ?? [];
   const reviewList = reviews ?? [];
   const startingPrice = itineraries.length > 0

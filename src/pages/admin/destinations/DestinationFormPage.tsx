@@ -30,6 +30,7 @@ const emptyForm = {
   seoTitle: '',
   seoDescription: '',
   isActive: true,
+  isComingSoon: false,
   startingPrice: 0,
 };
 
@@ -58,6 +59,7 @@ export function DestinationFormPage() {
             seoTitle: '',
             seoDescription: '',
             isActive: dest.isActive !== false,
+            isComingSoon: dest.isComingSoon ?? false,
             startingPrice: dest.startingPrice ?? 0,
           });
         }
@@ -114,6 +116,7 @@ export function DestinationFormPage() {
       location: form.location,
       images: form.images.filter(img => img.url),
       isActive: form.isActive,
+      isComingSoon: form.isComingSoon,
       startingPrice: form.startingPrice,
     };
     setLoading(true);
@@ -260,6 +263,15 @@ export function DestinationFormPage() {
                   <label className="flex items-center gap-2 cursor-pointer">
                     <input type="checkbox" checked={form.isActive} onChange={e => setForm(f => ({ ...f, isActive: e.target.checked }))} className="rounded" />
                     <span className="text-sm font-medium text-slate-700">Active (visible to customers)</span>
+                  </label>
+                </div>
+                <div>
+                  <label className="flex items-start gap-2 cursor-pointer">
+                    <input type="checkbox" checked={form.isComingSoon} onChange={e => setForm(f => ({ ...f, isComingSoon: e.target.checked }))} className="rounded mt-0.5" />
+                    <span>
+                      <span className="block text-sm font-medium text-slate-700">Coming Soon</span>
+                      <span className="block text-xs text-slate-500 mt-0.5">Shown greyed out, price hidden, and not clickable on the customer site.</span>
+                    </span>
                   </label>
                 </div>
               </div>

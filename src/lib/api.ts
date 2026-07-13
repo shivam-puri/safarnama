@@ -27,6 +27,8 @@ export const publicApi = {
     apiClient.get(`/api/itineraries/${slug}`).then(r => normalize(r.data.data)),
   getItineraryPricingData: (id: string) =>
     apiClient.get(`/api/itineraries/${id}/pricing-data`).then(r => normalize(r.data.data)),
+  getItineraries: (params?: object) =>
+    apiClient.get('/api/itineraries', { params }).then(r => ({ ...r.data, data: normalize(r.data.data) })),
   calculatePrice: (payload: object) =>
     apiClient.post('/api/price/calculate', payload).then(r => normalize(r.data.data)),
   createLead: (payload: object) =>
@@ -38,7 +40,7 @@ export const publicApi = {
   getCmsContent: (key: string) =>
     apiClient.get(`/api/cms/${key}`).then(r => normalize(r.data.data)),
   getPublicSettings: () =>
-    apiClient.get('/api/settings').then(r => normalize(r.data.data)),
+    apiClient.get('/api/cms/settings').then(r => normalize(r.data.data)),
 }
 
 export const authApi = {

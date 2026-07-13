@@ -44,6 +44,16 @@ export function DestinationsListPage() {
     }
   }
 
+  async function handleToggleComingSoon(id: string, current: boolean | undefined) {
+    try {
+      await adminApi.updateDestination(id, { isComingSoon: !current });
+      addToast('Status updated', 'success');
+      refetch();
+    } catch {
+      addToast('Update failed', 'error');
+    }
+  }
+
   const deleteTarget = destinations.find((d: any) => d.id === deleteId);
 
   return (
@@ -68,7 +78,7 @@ export function DestinationsListPage() {
         {/* Table */}
         <div className="overflow-x-auto">
           {loading ? (
-            <TableSkeleton rows={6} cols={4} />
+            <TableSkeleton rows={6} cols={5} />
           ) : filtered.length === 0 ? (
             <p className="text-center text-slate-500 text-sm py-10">No destinations found.</p>
           ) : (
@@ -78,6 +88,7 @@ export function DestinationsListPage() {
                   <th className="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase tracking-wide">Destination</th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase tracking-wide">Slug</th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase tracking-wide">Status</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase tracking-wide">Coming Soon</th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase tracking-wide">Actions</th>
                 </tr>
               </thead>
@@ -103,6 +114,14 @@ export function DestinationsListPage() {
                       <td className="px-4 py-3">
                         <button onClick={() => handleToggleActive(dest.id, dest.isActive)}>
                           <StatusBadge status={dest.isActive !== false ? 'active' : 'inactive'} />
+                        </button>
+                      </td>
+                      <td className="px-4 py-3">
+                        <button
+                          onClick={() => handleToggleComingSoon(dest.id, dest.isComingSoon)}
+                          className={`text-xs px-2 py-0.5 rounded-full ${dest.isComingSoon ? 'bg-amber-100 text-amber-700' : 'bg-slate-100 text-slate-500'}`}
+                        >
+                          {dest.isComingSoon ? 'Coming Soon' : 'No'}
                         </button>
                       </td>
                       <td className="px-4 py-3">

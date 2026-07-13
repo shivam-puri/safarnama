@@ -49,6 +49,7 @@ export interface Itinerary {
   highlights: string[];
   isActive: boolean;
   isFeatured: boolean;
+  featuredOnHomepage?: boolean;
 }
 
 export interface HotelCategory {

@@ -7,7 +7,7 @@ import { ItineraryCard } from '../components/itinerary/ItineraryCard';
 import { DoodlePlane, DoodleMountain, DoodleCompass, DoodleStar, DoodlePalmTree, DoodleDotPath } from '../components/common/Doodles';
 import { CardSkeletonGrid } from '../components/common/LoadingSkeleton';
 import { useAsync } from '../hooks/useAsync';
-import { publicApi, adminApi } from '../lib/api';
+import { publicApi } from '../lib/api';
 import { CATEGORY_META } from '../lib/categories';
 
 const HERO_IMAGES = [
@@ -25,7 +25,7 @@ const HERO_IMAGES_MOBILE = [
 export function HomePage() {
   const [heroIndex, setHeroIndex] = useState(0);
   const { data: destinations, loading: destinationsLoading } = useAsync(() => publicApi.getDestinations(), []);
-  const { data: itinerariesData, loading: itinerariesLoading } = useAsync(() => adminApi.getItineraries({ isFeatured: true, limit: 6 }), []);
+  const { data: itinerariesData, loading: itinerariesLoading } = useAsync(() => publicApi.getItineraries({ featuredOnHomepage: true, limit: 6 }), []);
 
   const featuredItineraries = itinerariesData?.data ?? [];
 
