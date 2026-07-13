@@ -36,7 +36,7 @@ export function Navbar({ transparent = false }: NavbarProps) {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
-            <img src="/logo.png" alt="Window Seat" className="h-9 w-9 object-contain transition-transform duration-300 group-hover:scale-105" />
+            <img src={isTransparent ? '/logo.png' : '/logo2.png'} alt="Window Seat" className="h-9 w-9 object-contain transition-transform duration-300 group-hover:scale-105" />
             <span className={`text-2xl font-bold ${textColor}`} style={{ fontFamily: 'Caveat, cursive' }}>Window Seat</span>
           </Link>
 

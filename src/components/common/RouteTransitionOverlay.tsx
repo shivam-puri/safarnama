@@ -16,7 +16,7 @@ export function RouteTransitionOverlay({ visible }: RouteTransitionOverlayProps)
           visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1'
         }`}
       >
-        <img src="/logo.png" alt="Window Seat" className="h-12 w-12 object-contain animate-pulse" />
+        <img src="/logo2.png" alt="Window Seat" className="h-12 w-12 object-contain animate-pulse" />
         <span
           className="text-3xl font-bold animate-pulse"
           style={{ fontFamily: 'Caveat, cursive', color: '#3D2C2C' }}
