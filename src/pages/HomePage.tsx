@@ -8,6 +8,7 @@ import { DoodlePlane, DoodleMountain, DoodleCompass, DoodleStar, DoodlePalmTree,
 import { CardSkeletonGrid } from '../components/common/LoadingSkeleton';
 import { useAsync } from '../hooks/useAsync';
 import { publicApi, adminApi } from '../lib/api';
+import { CATEGORY_META } from '../lib/categories';
 
 const HERO_IMAGES = [
   { url: 'https://i.pinimg.com/1200x/5d/c2/d3/5dc2d359af5a622136b87f2fd5eba5a5.jpg', alt: 'Travel Journal 1' },
@@ -171,7 +172,7 @@ export function HomePage() {
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
               {featuredItineraries.slice(0, 4).map((itn: any) => (
-                <ItineraryCard key={itn._id ?? itn.id} itinerary={itn} showCustomizeButton />
+                <ItineraryCard key={itn._id ?? itn.id} itinerary={itn} />
               ))}
             </div>
           )}
@@ -180,6 +181,37 @@ export function HomePage() {
 
       {/* Wavy divider */}
       <div className="wavy-divider-cream" style={{ marginTop: '-1px' }} />
+
+      {/* Explore by Category */}
+      <section className="py-16 px-4 relative overflow-hidden" style={{ backgroundColor: '#FFFBF5' }}>
+        <div className="max-w-7xl mx-auto relative">
+          <div className="text-center mb-10">
+            <p className="journal-label mb-2">Trips for every occasion</p>
+            <h2 className="hand-heading text-3xl sm:text-4xl mb-2">
+              Explore <span className="hand-underline">by Category</span>
+            </h2>
+            <p className="mt-3 max-w-xl mx-auto" style={{ color: '#8A7060' }}>
+              From school trips to honeymoons — find itineraries curated for your kind of journey.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+            {CATEGORY_META.map(cat => (
+              <Link
+                key={cat.value}
+                to={`/trips/${cat.value}`}
+                className="group rounded-2xl p-5 text-center text-white transition-transform hover:-translate-y-1 shadow-sm"
+                style={{ background: cat.gradient }}
+              >
+                <div className="text-3xl mb-2">{cat.emoji}</div>
+                <div className="text-sm font-semibold">{cat.label}</div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Wavy divider */}
+      <div className="wavy-divider" style={{ marginTop: '-1px' }} />
 
       {/* How It Works */}
       <section id="how-it-works" className="py-16 px-4 relative overflow-hidden" style={{ backgroundColor: '#FFFBF5' }}>

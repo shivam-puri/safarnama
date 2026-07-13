@@ -1,10 +1,16 @@
+import { useEffect } from 'react';
 import { createBrowserRouter, RouterProvider, Outlet, Navigate } from 'react-router-dom';
+import { useSiteSettingsStore } from './store/siteSettingsStore';
+import { useRouteTransition } from './hooks/useRouteTransition';
+import { ScrollToTop } from './components/common/ScrollToTop';
+import { RouteTransitionOverlay } from './components/common/RouteTransitionOverlay';
 import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
 import { HomePage } from './pages/HomePage';
 import { DestinationsPage } from './pages/DestinationsPage';
 import { DestinationDetailPage } from './pages/DestinationDetailPage';
 import { ItineraryDetailPage } from './pages/ItineraryDetailPage';
+import { CategoryTripsPage } from './pages/CategoryTripsPage';
 import { CustomizePage } from './pages/CustomizePage';
 import { ConfirmationPage } from './pages/ConfirmationPage';
 import { AboutPage } from './pages/AboutPage';
@@ -37,6 +43,7 @@ import { SettingsPage } from './pages/admin/settings/SettingsPage';
 function CustomerLayout() {
   return (
     <div className="flex flex-col min-h-screen">
+      <ScrollToTop />
       <Navbar />
       <main className="flex-1 pt-16">
         <Outlet />
@@ -50,6 +57,7 @@ function CustomerLayout() {
 function CustomizeLayout() {
   return (
     <div className="flex flex-col min-h-screen">
+      <ScrollToTop />
       <main className="flex-1">
         <Outlet />
       </main>
@@ -61,6 +69,7 @@ function CustomizeLayout() {
 function HomeLayout() {
   return (
     <div className="flex flex-col min-h-screen">
+      <ScrollToTop />
       <main className="flex-1">
         <Outlet />
       </main>
@@ -85,6 +94,13 @@ const router = createBrowserRouter([
       { index: true, element: <DestinationsPage /> },
       { path: ':slug', element: <DestinationDetailPage /> },
       { path: ':destSlug/:itinerarySlug', element: <ItineraryDetailPage /> },
+    ],
+  },
+  {
+    path: '/trips',
+    element: <CustomerLayout />,
+    children: [
+      { path: ':category', element: <CategoryTripsPage /> },
     ],
   },
   {
@@ -146,5 +162,16 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
-  return <RouterProvider router={router} />;
+  const transitioning = useRouteTransition(router, 2000);
+
+  useEffect(() => {
+    useSiteSettingsStore.getState().fetch();
+  }, []);
+
+  return (
+    <>
+      <RouteTransitionOverlay visible={transitioning} />
+      <RouterProvider router={router} />
+    </>
+  );
 }

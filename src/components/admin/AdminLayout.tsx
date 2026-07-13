@@ -1,4 +1,5 @@
-import { Outlet, NavLink, useNavigate } from 'react-router-dom';
+import { useEffect, useRef } from 'react';
+import { Outlet, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard,
   MapPin,
@@ -49,6 +50,12 @@ function NavGroup({ label }: { label: string }) {
 export function AdminLayout() {
   const { logout } = useAdminAuthStore();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const mainRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    mainRef.current?.scrollTo(0, 0);
+  }, [pathname]);
 
   function handleLogout() {
     logout();
@@ -124,7 +131,7 @@ export function AdminLayout() {
         </header>
 
         {/* Page Content */}
-        <main className="flex-1 overflow-y-auto p-6">
+        <main ref={mainRef} className="flex-1 overflow-y-auto p-6">
           <Outlet />
         </main>
       </div>

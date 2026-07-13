@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { MapPin, Calendar, TrendingUp } from 'lucide-react';
 import type { Destination } from '../../types/destination.types';
 import { Badge } from '../common/Badge';
+import { useSiteSettingsStore } from '../../store/siteSettingsStore';
 
 interface DestinationCardProps {
   destination: Destination;
@@ -17,6 +18,7 @@ function formatIndianCurrency(amount: number): string {
 }
 
 export function DestinationCard({ destination }: DestinationCardProps) {
+  const showPrices = useSiteSettingsStore(s => s.showPrices);
   const primaryImage = destination.images.find(img => img.isPrimary) || destination.images[0];
 
   return (
@@ -62,7 +64,7 @@ export function DestinationCard({ destination }: DestinationCardProps) {
               <Calendar size={12} />
               <span>{destination.itineraryCount} itineraries</span>
             </div>
-            {destination.startingPrice > 0 && (
+            {showPrices && destination.startingPrice > 0 && (
               <div className="flex items-center gap-1">
                 <TrendingUp size={12} style={{ color: '#6BAE8E' }} />
                 <span className="text-xs" style={{ color: '#8A7060' }}>from </span>

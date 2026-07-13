@@ -8,18 +8,12 @@ import { ReviewCard } from '../components/common/ReviewCard';
 import { Badge } from '../components/common/Badge';
 import { useAsync } from '../hooks/useAsync';
 import { DetailPageSkeleton } from '../components/common/LoadingSkeleton';
+import { getCategoryMeta } from '../lib/categories';
+import { useSiteSettingsStore } from '../store/siteSettingsStore';
 
 function formatCurrency(amount: number) {
   return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(amount);
 }
-
-const categoryConfig: Record<string, { label: string; variant: 'primary' | 'accent' | 'success' | 'warning' | 'category' }> = {
-  budget: { label: 'Budget', variant: 'success' },
-  family: { label: 'Family', variant: 'primary' },
-  luxury: { label: 'Luxury', variant: 'category' },
-  adventure: { label: 'Adventure', variant: 'accent' },
-  honeymoon: { label: 'Honeymoon', variant: 'warning' },
-};
 
 const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 
@@ -49,6 +43,7 @@ function StarPicker({ value, onChange }: { value: number; onChange: (v: number) 
 
 export function ItineraryDetailPage() {
   const { itinerarySlug, destSlug } = useParams<{ destSlug: string; itinerarySlug: string }>();
+  const showPrices = useSiteSettingsStore(s => s.showPrices);
   const [travelerCount, setTravelerCount] = useState(2);
   const [reviewForm, setReviewForm] = useState({ name: '', email: '', city: '', rating: 0, title: '', body: '', travelMonth: '' });
   const [reviewSubmitting, setReviewSubmitting] = useState(false);
@@ -90,18 +85,26 @@ export function ItineraryDetailPage() {
 
   const reviewList = reviews ?? [];
   const activities = itinerary.activitiesPool ?? [];
-  const catConfig = categoryConfig[itinerary.category] || { label: itinerary.category, variant: 'default' as const };
-  const primaryImage = (itinerary.images ?? []).find((i: any) => i.isPrimary) || itinerary.images?.[0];
+  const catMeta = getCategoryMeta(itinerary.category);
+  const catConfig = { label: catMeta.label, variant: catMeta.badgeVariant };
+  const destImages = itinerary.destinationId?.images ?? [];
+  const primaryImage =
+    (itinerary.images ?? []).find((i: any) => i.isPrimary) || itinerary.images?.[0] ||
+    destImages.find((i: any) => i.isPrimary) || destImages[0];
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#FFFBF5' }}>
       {/* Hero */}
       <div className="relative h-64 md:h-80 overflow-hidden" style={{ backgroundColor: '#3D2C2C' }}>
-        <img
-          src={primaryImage?.url}
-          alt={primaryImage?.alt || itinerary.title}
-          className="w-full h-full object-cover opacity-80"
-        />
+        {primaryImage?.url ? (
+          <img
+            src={primaryImage.url}
+            alt={primaryImage.alt || itinerary.title}
+            className="w-full h-full object-cover opacity-80"
+          />
+        ) : (
+          <div className="w-full h-full opacity-80" style={{ background: catMeta.gradient }} />
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 p-6 pt-16">
           <div className="max-w-7xl mx-auto">
@@ -147,10 +150,12 @@ export function ItineraryDetailPage() {
             </div>
 
             {/* Inclusions / Exclusions */}
-            <div className="journal-card p-5">
-              <h2 className="text-lg font-bold mb-4" style={{ color: '#3D2C2C', fontFamily: 'Caveat, cursive', fontSize: '1.35rem' }}>Inclusions & Exclusions</h2>
-              <InclusionsList inclusions={itinerary.inclusions ?? []} exclusions={itinerary.exclusions ?? []} />
-            </div>
+            {((itinerary.inclusions ?? []).length > 0 || (itinerary.exclusions ?? []).length > 0) && (
+              <div className="journal-card p-5">
+                <h2 className="text-lg font-bold mb-4" style={{ color: '#3D2C2C', fontFamily: 'Caveat, cursive', fontSize: '1.35rem' }}>Inclusions & Exclusions</h2>
+                <InclusionsList inclusions={itinerary.inclusions ?? []} exclusions={itinerary.exclusions ?? []} />
+              </div>
+            )}
 
             {/* Reviews */}
             {reviewList.length > 0 && (
@@ -268,14 +273,21 @@ export function ItineraryDetailPage() {
           <div className="lg:col-span-1">
             <div className="sticky top-24">
               <div className="journal-card p-5">
-                <div className="mb-4">
-                  <p className="text-xs mb-0.5" style={{ color: '#B5A090' }}>Starting from</p>
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-2xl font-bold" style={{ color: '#5B7FA6' }}>{formatCurrency(itinerary.basePricePerPerson)}</span>
-                    <span className="text-sm" style={{ color: '#B5A090' }}>/person</span>
+                {showPrices ? (
+                  <div className="mb-4">
+                    <p className="text-xs mb-0.5" style={{ color: '#B5A090' }}>Starting from</p>
+                    <div className="flex items-baseline gap-1">
+                      <span className="text-2xl font-bold" style={{ color: '#5B7FA6' }}>{formatCurrency(itinerary.basePricePerPerson)}</span>
+                      <span className="text-sm" style={{ color: '#B5A090' }}>/person</span>
+                    </div>
+                    <p className="text-xs mt-1" style={{ color: '#A06020' }}>Indicative price — confirmed after enquiry</p>
                   </div>
-                  <p className="text-xs mt-1" style={{ color: '#A06020' }}>Indicative price — confirmed after enquiry</p>
-                </div>
+                ) : (
+                  <div className="mb-4">
+                    <p className="text-lg font-bold" style={{ color: '#5B7FA6' }}>Price on request</p>
+                    <p className="text-xs mt-1" style={{ color: '#A06020' }}>Customize your trip for a quote</p>
+                  </div>
+                )}
 
                 <div className="mb-4">
                   <label className="block text-xs font-medium mb-1.5" style={{ color: '#5C4A3A' }}>Number of Travellers</label>
@@ -292,17 +304,12 @@ export function ItineraryDetailPage() {
                       style={{ border: '1.5px solid #E8D5C4', color: '#8A7060' }}
                     >+</button>
                   </div>
-                  <p className="text-xs mt-1" style={{ color: '#B5A090' }}>Estimated total: {formatCurrency(itinerary.basePricePerPerson * travelerCount)}</p>
+                  {showPrices && (
+                    <p className="text-xs mt-1" style={{ color: '#B5A090' }}>Estimated total: {formatCurrency(itinerary.basePricePerPerson * travelerCount)}</p>
+                  )}
                 </div>
 
-                <Link
-                  to={`/customize/${itinerary.id}`}
-                  className="stamp-btn flex items-center justify-center gap-2 w-full py-3"
-                >
-                  Customize & Get Quote <ArrowRight size={16} />
-                </Link>
-
-                <div className="mt-4 grid grid-cols-2 gap-2 text-xs" style={{ color: '#8A7060' }}>
+                <div className="grid grid-cols-2 gap-2 text-xs" style={{ color: '#8A7060' }}>
                   <div className="flex items-center gap-1.5">
                     <Clock size={11} /> {itinerary.duration.days} Days
                   </div>
@@ -313,6 +320,22 @@ export function ItineraryDetailPage() {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Bottom Customize CTA — the itinerary above is a fixed, read-only plan; customization happens after this point */}
+      <div className="max-w-7xl mx-auto px-4 pb-10">
+        <div className="journal-card p-6 flex flex-col sm:flex-row items-center justify-between gap-4" style={{ backgroundColor: '#FFF5EC' }}>
+          <div className="text-center sm:text-left">
+            <h3 className="text-lg font-bold" style={{ color: '#3D2C2C', fontFamily: 'Caveat, cursive', fontSize: '1.35rem' }}>Like what you see?</h3>
+            <p className="text-sm mt-0.5" style={{ color: '#8A7060' }}>Customize hotel, transport, activities and travellers to get your quote.</p>
+          </div>
+          <Link
+            to={`/customize/${itinerary.id}`}
+            className="stamp-btn flex items-center justify-center gap-2 px-8 py-3 shrink-0"
+          >
+            Customize & Get Quote <ArrowRight size={16} />
+          </Link>
         </div>
       </div>
     </div>

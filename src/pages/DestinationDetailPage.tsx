@@ -8,9 +8,11 @@ import { Badge } from '../components/common/Badge';
 import { useAsync } from '../hooks/useAsync';
 import { publicApi } from '../lib/api';
 import { DetailPageSkeleton } from '../components/common/LoadingSkeleton';
+import { useSiteSettingsStore } from '../store/siteSettingsStore';
 
 export function DestinationDetailPage() {
   const { slug } = useParams<{ slug: string }>();
+  const showPrices = useSiteSettingsStore(s => s.showPrices);
   const [activeTab, setActiveTab] = useState<'overview' | 'itineraries' | 'reviews'>('overview');
 
   const { data: destData, loading } = useAsync(() => publicApi.getDestinationBySlug(slug!), [slug]);
@@ -126,7 +128,7 @@ export function DestinationDetailPage() {
                     <span style={{ color: '#8A7060' }}>Packages</span>
                     <span className="font-medium" style={{ color: '#3D2C2C' }}>{itineraries.length} itineraries</span>
                   </div>
-                  {startingPrice && (
+                  {showPrices && startingPrice && (
                     <div className="flex justify-between">
                       <span style={{ color: '#8A7060' }}>Starting from</span>
                       <span className="font-bold" style={{ color: '#5B7FA6' }}>₹{startingPrice.toLocaleString('en-IN')}</span>
@@ -149,7 +151,7 @@ export function DestinationDetailPage() {
             <h2 className="text-xl font-bold mb-6" style={{ color: '#3D2C2C', fontFamily: 'Caveat, cursive', fontSize: '1.5rem' }}>{itineraries.length} Packages Available</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {itineraries.map((itn: any) => (
-                <ItineraryCard key={itn._id ?? itn.id} itinerary={itn} showCustomizeButton />
+                <ItineraryCard key={itn._id ?? itn.id} itinerary={itn} />
               ))}
             </div>
           </div>

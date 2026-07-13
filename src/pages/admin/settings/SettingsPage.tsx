@@ -22,7 +22,7 @@ function SettingsSkeleton() {
 
 export function SettingsPage() {
   const { toasts, addToast, removeToast } = useToast();
-  const [edits, setEdits] = useState<Record<string, string | number>>({});
+  const [edits, setEdits] = useState<Record<string, string | number | boolean>>({});
   const [saving, setSaving] = useState(false);
 
   const { data: result, loading, refetch } = useAsync(() => adminApi.getSettings(), []);
@@ -34,7 +34,7 @@ export function SettingsPage() {
     return s?.value ?? '';
   };
 
-  function handleChange(key: string, value: string | number) {
+  function handleChange(key: string, value: string | number | boolean) {
     setEdits(prev => ({ ...prev, [key]: value }));
   }
 
@@ -53,6 +53,11 @@ export function SettingsPage() {
   }
 
   const byCategory = (cat: string) => (settings as any[]).filter((s: any) => s.category === cat);
+
+  const showPricesValue = edits['show_prices'] !== undefined
+    ? edits['show_prices']
+    : ((settings as any[]).find((s: any) => s.key === 'show_prices')?.value ?? true);
+  const showPricesBool = showPricesValue === true || showPricesValue === 'true' || showPricesValue === 1;
 
   const inputCls = "w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500";
   const labelCls = "block text-sm font-medium text-slate-700 mb-1.5";
@@ -76,6 +81,25 @@ export function SettingsPage() {
                 />
               </div>
             ))}
+          </div>
+        </AdminCard>
+
+        <AdminCard title="Display">
+          <div className="p-6">
+            <label className="flex items-start gap-3 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={showPricesBool}
+                onChange={e => handleChange('show_prices', e.target.checked)}
+                className="mt-0.5 rounded"
+              />
+              <span>
+                <span className="block text-sm font-medium text-slate-700">Show prices to customers</span>
+                <span className="block text-xs text-slate-500 mt-0.5">
+                  When off, prices are hidden across destination and itinerary pages ("Price on request" shown instead).
+                </span>
+              </span>
+            </label>
           </div>
         </AdminCard>
 

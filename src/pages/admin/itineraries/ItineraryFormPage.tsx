@@ -7,6 +7,7 @@ import { AdminCard } from '../../../components/admin/ui/AdminCard';
 import { ToastContainer } from '../../../components/admin/ui/Toast';
 import { useToast } from '../../../components/admin/ui/useToast';
 import type { Itinerary, Day, ActivityRef } from '../../../types/itinerary.types';
+import { CATEGORY_META } from '../../../lib/categories';
 
 function slugify(text: string): string {
   return text.toLowerCase().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').trim();
@@ -273,7 +274,7 @@ export function ItineraryFormPage() {
                 <div>
                   <label className={labelCls}>Category</label>
                   <select value={form.category} onChange={e => setForm(f => ({ ...f, category: e.target.value as Itinerary['category'] }))} className={inputCls}>
-                    {['budget', 'family', 'luxury', 'adventure', 'honeymoon'].map(c => <option key={c} value={c}>{c.charAt(0).toUpperCase() + c.slice(1)}</option>)}
+                    {CATEGORY_META.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
                   </select>
                 </div>
                 <div className="grid grid-cols-2 gap-3">

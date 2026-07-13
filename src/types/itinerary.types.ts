@@ -1,5 +1,7 @@
 export interface ActivityRef {
-  activityId: string;
+  // The API returns activityId populated with the full Activity object; it may
+  // also be a plain id string when unpopulated (e.g. freshly built in the admin form).
+  activityId: string | Activity;
   isMandatory: boolean;
   isIncluded: boolean;
   customPrice?: number;
@@ -36,7 +38,7 @@ export interface Itinerary {
   description: string;
   duration: { days: number; nights: number };
   images: Array<{ url: string; alt: string; isPrimary?: boolean }>;
-  category: 'budget' | 'family' | 'luxury' | 'adventure' | 'honeymoon';
+  category: 'budget' | 'family' | 'luxury' | 'adventure' | 'honeymoon' | 'school_trip' | 'corporate' | 'senior_citizen' | 'solo';
   minTravelers: number;
   maxTravelers: number;
   basePricePerPerson: number;

@@ -2,10 +2,11 @@ import { Link } from 'react-router-dom';
 import { Clock, Users, Star, ArrowRight, MapPin } from 'lucide-react';
 import type { Itinerary } from '../../types/itinerary.types';
 import { Badge } from '../common/Badge';
+import { getCategoryMeta } from '../../lib/categories';
+import { useSiteSettingsStore } from '../../store/siteSettingsStore';
 
 interface ItineraryCardProps {
   itinerary: Itinerary;
-  showCustomizeButton?: boolean;
 }
 
 function formatIndianCurrency(amount: number): string {
@@ -17,17 +18,11 @@ function formatIndianCurrency(amount: number): string {
   }).format(amount);
 }
 
-const categoryConfig: Record<string, { label: string; variant: 'primary' | 'accent' | 'success' | 'warning' | 'category'; gradient: string }> = {
-  budget:    { label: 'Budget',    variant: 'success',  gradient: 'linear-gradient(135deg, #6BAE8E 0%, #4D9070 100%)' },
-  family:    { label: 'Family',    variant: 'primary',  gradient: 'linear-gradient(135deg, #5B7FA6 0%, #3D6089 100%)' },
-  luxury:    { label: 'Luxury',    variant: 'category', gradient: 'linear-gradient(135deg, #8B6FBE 0%, #614E9F 100%)' },
-  adventure: { label: 'Adventure', variant: 'accent',   gradient: 'linear-gradient(135deg, #E8643C 0%, #C44D27 100%)' },
-  honeymoon: { label: 'Honeymoon', variant: 'warning',  gradient: 'linear-gradient(135deg, #F4A261 0%, #E87D32 100%)' },
-};
-
-export function ItineraryCard({ itinerary, showCustomizeButton = false }: ItineraryCardProps) {
+export function ItineraryCard({ itinerary }: ItineraryCardProps) {
+  const showPrices = useSiteSettingsStore(s => s.showPrices);
   const primaryImage = itinerary.images.find(img => img.isPrimary) || itinerary.images[0];
-  const catConfig = categoryConfig[itinerary.category] || { label: itinerary.category, variant: 'default' as const };
+  const catMeta = getCategoryMeta(itinerary.category);
+  const catConfig = { label: catMeta.label, variant: catMeta.badgeVariant, gradient: catMeta.gradient };
 
   return (
     <div className="journal-card overflow-hidden group">
@@ -86,29 +81,24 @@ export function ItineraryCard({ itinerary, showCustomizeButton = false }: Itiner
         </div>
 
         <div className="flex items-center justify-between">
-          <div>
-            <p className="text-xs" style={{ color: '#B5A090' }}>Starting from</p>
-            <p className="text-base font-bold" style={{ color: '#5B7FA6' }}>
-              {formatIndianCurrency(itinerary.basePricePerPerson)}
-              <span className="text-xs font-normal" style={{ color: '#B5A090' }}>/person</span>
-            </p>
-          </div>
-          {showCustomizeButton ? (
-            <Link
-              to={`/customize/${itinerary.id}`}
-              className="stamp-btn text-xs px-3 py-1.5"
-            >
-              Customize <ArrowRight size={12} />
-            </Link>
+          {showPrices ? (
+            <div>
+              <p className="text-xs" style={{ color: '#B5A090' }}>Starting from</p>
+              <p className="text-base font-bold" style={{ color: '#5B7FA6' }}>
+                {formatIndianCurrency(itinerary.basePricePerPerson)}
+                <span className="text-xs font-normal" style={{ color: '#B5A090' }}>/person</span>
+              </p>
+            </div>
           ) : (
-            <Link
-              to={`/destinations/${itinerary.destinationSlug}/${itinerary.slug}`}
-              className="flex items-center gap-1 text-xs font-semibold transition-colors hover:text-[#E8643C]"
-              style={{ color: '#5B7FA6' }}
-            >
-              View Details <ArrowRight size={12} />
-            </Link>
+            <p className="text-sm font-semibold" style={{ color: '#5B7FA6' }}>Price on request</p>
           )}
+          <Link
+            to={`/destinations/${itinerary.destinationSlug}/${itinerary.slug}`}
+            className="flex items-center gap-1 text-xs font-semibold transition-colors hover:text-[#E8643C]"
+            style={{ color: '#5B7FA6' }}
+          >
+            View Details <ArrowRight size={12} />
+          </Link>
         </div>
       </div>
     </div>
