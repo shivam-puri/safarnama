@@ -1,4 +1,3 @@
-import { Heart, Map, Users, Award } from 'lucide-react';
 import { DoodleCompass, DoodlePlane, DoodleStar, DoodleWave } from '../components/common/Doodles';
 
 const team = [

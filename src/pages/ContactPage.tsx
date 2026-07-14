@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Phone, Mail, MapPin, Clock, Send, CheckCircle2 } from 'lucide-react';
+import { Phone, Mail, MapPin, Send, CheckCircle2 } from 'lucide-react';
 
 export function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -62,13 +62,12 @@ export function ContactPage() {
           <div className="space-y-5">
             <div>
               <h2 className="text-xl font-bold mb-4" style={{ color: '#3D2C2C', fontFamily: 'Caveat, cursive', fontSize: '1.5rem' }}>Get in Touch</h2>
-              <p className="text-sm leading-relaxed" style={{ color: '#8A7060' }}>Our team is available Monday to Saturday, 9am to 7pm IST. We typically respond to enquiries within 24 hours.</p>
+              <p className="text-sm leading-relaxed" style={{ color: '#8A7060' }}>Our team is available Monday to Sunday, 9am to 7pm IST. We typically respond to enquiries within 24 hours.</p>
             </div>
             {[
-              { icon: <Phone size={18} style={{ color: '#E8643C' }} />, label: 'Call Us', value: '+91 98765 43210', href: 'tel:+919876543210' },
+              { icon: <Phone size={18} style={{ color: '#E8643C' }} />, label: 'Call Us', value: '+91 77738 62111', href: 'tel:+919876543210' },
               { icon: <Mail size={18} style={{ color: '#E8643C' }} />, label: 'Email Us', value: 'window.seat.trails@gmail.com', href: 'mailto:window.seat.trails@gmail.com' },
-              { icon: <MapPin size={18} style={{ color: '#E8643C' }} />, label: 'Visit Us', value: '123 Travel House, Connaught Place, New Delhi, 110001', href: null },
-              { icon: <Clock size={18} style={{ color: '#E8643C' }} />, label: 'Working Hours', value: 'Mon–Sat: 9:00 AM – 7:00 PM IST', href: null },
+              { icon: <MapPin size={18} style={{ color: '#E8643C' }} />, label: 'Visit Us', value: '104, Man Arch Apartment, Anoop Nagar, Indore 452011', href: null },
             ].map((item, idx) => (
               <div key={idx} className="journal-card flex items-start gap-3 p-4">
                 <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style={{ backgroundColor: '#FDEAE3', border: '1.5px solid #F4C4B0' }}>
