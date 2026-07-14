@@ -20,7 +20,7 @@ export function CancellationPage() {
         <div className="rounded-2xl p-4 mb-8" style={{ backgroundColor: '#FEF3E8', border: '1.5px solid #F4CEAD' }}>
           <p className="text-sm leading-relaxed" style={{ color: '#A06020' }}>
             <strong>Important:</strong> All cancellations must be submitted in writing to{' '}
-            <a href="mailto:bookings@windowseat.com" className="underline" style={{ color: '#A06020' }}>bookings@windowseat.com</a>.
+            <a href="mailto:bookings@windowseat.com" className="underline" style={{ color: '#A06020' }}>window.seat.trails@gmail.com</a>.
             Cancellation is effective from the date we receive written confirmation.
           </p>
         </div>
