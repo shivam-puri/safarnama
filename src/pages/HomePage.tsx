@@ -9,6 +9,8 @@ import { CardSkeletonGrid } from '../components/common/LoadingSkeleton';
 import { useAsync } from '../hooks/useAsync';
 import { publicApi } from '../lib/api';
 import { FEATURED_CATEGORIES } from '../lib/categories';
+import { Seo, SITE_NAME, SITE_URL } from '../components/common/Seo';
+import { JsonLd } from '../components/common/JsonLd';
 
 const BENTO_ORDER = ['school_trip', 'family', 'friends', 'adventure', 'honeymoon', 'corporate'];
 const BENTO_SPAN: Record<string, string> = {
@@ -48,6 +50,38 @@ export function HomePage() {
 
   return (
     <div className="flex flex-col min-h-screen">
+      <Seo
+        title="Window Seat Trails | Custom India Travel Itineraries"
+        description="Window Seat Trails designs fully customizable trips across India. Choose your hotel, transport, and activities, and get a real-time price quote in minutes."
+        path="/"
+      />
+      <JsonLd
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'TravelAgency',
+          name: SITE_NAME,
+          alternateName: 'Window Seat Trails',
+          url: SITE_URL,
+          logo: `${SITE_URL}/logo2.png`,
+          image: `${SITE_URL}/logo2.png`,
+          description: 'Window Seat Trails designs fully customizable travel itineraries across India — hotel, transport, and activities tailored to every trip.',
+          sameAs: [
+            'https://instagram.com/somiltravel',
+            'https://facebook.com/somiltravel',
+            'https://twitter.com/somiltravel',
+            'https://youtube.com/somiltravel',
+          ],
+        }}
+      />
+      <JsonLd
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'WebSite',
+          name: SITE_NAME,
+          alternateName: 'Window Seat Trails',
+          url: SITE_URL,
+        }}
+      />
       <Navbar transparent />
 
       {/* Hero Section */}

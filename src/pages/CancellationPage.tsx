@@ -1,3 +1,5 @@
+import { Seo } from '../components/common/Seo';
+
 export function CancellationPage() {
   const policies = [
     { days: '30+ days before departure', refund: '90% refund', bg: '#E4F4EC', border: '#B8DFC8', text: '#3D8B60' },
@@ -9,6 +11,11 @@ export function CancellationPage() {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#FFFBF5' }}>
+      <Seo
+        title="Cancellation Policy | Window Seat Trails"
+        description="Read the cancellation and refund policy for trips booked with Window Seat Trails."
+        path="/cancellation-policy"
+      />
       <div className="text-white py-14 px-4" style={{ backgroundColor: '#3D2C2C' }}>
         <div className="max-w-4xl mx-auto">
           <p className="journal-label mb-2" style={{ color: '#F4A261' }}>Policy</p>

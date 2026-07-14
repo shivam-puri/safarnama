@@ -1,4 +1,5 @@
 import { DoodleCompass, DoodlePlane, DoodleStar, DoodleWave } from '../components/common/Doodles';
+import { Seo } from '../components/common/Seo';
 
 const team = [
   {
@@ -30,6 +31,11 @@ const team = [
 export function AboutPage() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#FFFBF5' }}>
+      <Seo
+        title="About Us | Window Seat Trails"
+        description="Meet the team behind Window Seat Trails and learn how we design custom, hassle-free travel itineraries across India."
+        path="/about"
+      />
       {/* Hero */}
       <div className="text-white py-20 px-4 relative overflow-hidden" style={{ backgroundColor: '#3D2C2C' }}>
         <DoodleCompass size={110} color="#FFFBF5" className="absolute left-8 top-8 pointer-events-none hidden lg:block" opacity={0.1} />

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://www.windowseattrails.com/</loc><priority>1.0</priority></url>
+  <url><loc>https://www.windowseattrails.com/destinations</loc><priority>0.9</priority></url>
+  <url><loc>https://www.windowseattrails.com/about</loc><priority>0.5</priority></url>
+  <url><loc>https://www.windowseattrails.com/contact</loc><priority>0.5</priority></url>
+  <url><loc>https://www.windowseattrails.com/terms</loc><priority>0.2</priority></url>
+  <url><loc>https://www.windowseattrails.com/cancellation-policy</loc><priority>0.2</priority></url>
+
+  <url><loc>https://www.windowseattrails.com/trips/school_trip</loc><priority>0.6</priority></url>
+  <url><loc>https://www.windowseattrails.com/trips/friends</loc><priority>0.6</priority></url>
+  <url><loc>https://www.windowseattrails.com/trips/adventure</loc><priority>0.6</priority></url>
+  <url><loc>https://www.windowseattrails.com/trips/honeymoon</loc><priority>0.6</priority></url>
+  <url><loc>https://www.windowseattrails.com/trips/family</loc><priority>0.6</priority></url>
+  <url><loc>https://www.windowseattrails.com/trips/corporate</loc><priority>0.6</priority></url>
+
+  <url><loc>https://www.windowseattrails.com/destinations/kerala</loc><priority>0.8</priority></url>
+  <url><loc>https://www.windowseattrails.com/destinations/manali</loc><priority>0.8</priority></url>
+  <url><loc>https://www.windowseattrails.com/destinations/udaipur</loc><priority>0.8</priority></url>
+
+  <url><loc>https://www.windowseattrails.com/destinations/kerala/kerala-backwaters-4d3n</loc><priority>0.7</priority></url>
+  <url><loc>https://www.windowseattrails.com/destinations/manali/adventure-manali-5d4n</loc><priority>0.7</priority></url>
+  <url><loc>https://www.windowseattrails.com/destinations/udaipur/udaipur-friends-getaway-lakes-views-nightlife</loc><priority>0.7</priority></url>
+  <url><loc>https://www.windowseattrails.com/destinations/udaipur/udaipur-school-trip-explore-the-royal-city</loc><priority>0.7</priority></url>
+</urlset>

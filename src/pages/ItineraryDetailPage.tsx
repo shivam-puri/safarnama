@@ -10,6 +10,8 @@ import { useAsync } from '../hooks/useAsync';
 import { DetailPageSkeleton } from '../components/common/LoadingSkeleton';
 import { getCategoryMeta } from '../lib/categories';
 import { useSiteSettingsStore } from '../store/siteSettingsStore';
+import { Seo, SITE_URL } from '../components/common/Seo';
+import { JsonLd } from '../components/common/JsonLd';
 
 function formatCurrency(amount: number) {
   return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(amount);
@@ -92,8 +94,42 @@ export function ItineraryDetailPage() {
     (itinerary.images ?? []).find((i: any) => i.isPrimary) || itinerary.images?.[0] ||
     destImages.find((i: any) => i.isPrimary) || destImages[0];
 
+  const path = `/destinations/${destSlug}/${itinerarySlug}`;
+
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#FFFBF5' }}>
+      <Seo
+        title={itinerary.seoTitle || `${itinerary.title} | Window Seat Trails`}
+        description={itinerary.seoDescription || itinerary.shortDescription}
+        path={path}
+        image={primaryImage?.url}
+      />
+      <JsonLd
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'TouristTrip',
+          name: itinerary.title,
+          description: itinerary.shortDescription,
+          url: `${SITE_URL}${path}`,
+          image: primaryImage?.url,
+          offers: {
+            '@type': 'Offer',
+            price: itinerary.basePricePerPerson,
+            priceCurrency: 'INR',
+          },
+        }}
+      />
+      <JsonLd
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
+            { '@type': 'ListItem', position: 2, name: 'Destinations', item: `${SITE_URL}/destinations` },
+            { '@type': 'ListItem', position: 3, name: itinerary.title, item: `${SITE_URL}${path}` },
+          ],
+        }}
+      />
       {/* Hero */}
       <div className="relative h-64 md:h-80 overflow-hidden" style={{ backgroundColor: '#3D2C2C' }}>
         {primaryImage?.url ? (

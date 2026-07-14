@@ -9,6 +9,8 @@ import { useAsync } from '../hooks/useAsync';
 import { publicApi } from '../lib/api';
 import { DetailPageSkeleton } from '../components/common/LoadingSkeleton';
 import { useSiteSettingsStore } from '../store/siteSettingsStore';
+import { Seo, SITE_URL } from '../components/common/Seo';
+import { JsonLd } from '../components/common/JsonLd';
 
 export function DestinationDetailPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -42,8 +44,37 @@ export function DestinationDetailPage() {
     { id: 'reviews' as const, label: `Reviews (${reviewList.length})` },
   ];
 
+  const path = `/destinations/${destination.slug}`;
+
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#FFFBF5' }}>
+      <Seo
+        title={destination.seoTitle || `${destination.name} Trip Packages | Window Seat Trails`}
+        description={destination.seoDescription || destination.shortDescription}
+        path={path}
+        image={destination.images?.[0]?.url}
+      />
+      <JsonLd
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'TouristDestination',
+          name: destination.name,
+          description: destination.shortDescription,
+          url: `${SITE_URL}${path}`,
+          image: destination.images?.map((i: any) => i.url),
+        }}
+      />
+      <JsonLd
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
+            { '@type': 'ListItem', position: 2, name: 'Destinations', item: `${SITE_URL}/destinations` },
+            { '@type': 'ListItem', position: 3, name: destination.name, item: `${SITE_URL}${path}` },
+          ],
+        }}
+      />
       {/* Gallery */}
       <div style={{ backgroundColor: '#3D2C2C' }}>
         <div className="max-w-7xl mx-auto px-4 pt-20 pb-4">

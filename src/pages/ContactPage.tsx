@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Phone, Mail, MapPin, Send, CheckCircle2 } from 'lucide-react';
+import { Seo } from '../components/common/Seo';
 
 export function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -12,6 +13,11 @@ export function ContactPage() {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#FFFBF5' }}>
+      <Seo
+        title="Contact Us | Window Seat Trails"
+        description="Get in touch with Window Seat Trails for custom trip planning, quotes, and travel questions."
+        path="/contact"
+      />
       <div className="text-white py-14 px-4" style={{ backgroundColor: '#3D2C2C' }}>
         <div className="max-w-7xl mx-auto">
           <p className="journal-label mb-2" style={{ color: '#F4A261' }}>Reach out</p>

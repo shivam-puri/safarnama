@@ -1,6 +1,13 @@
+import { Seo } from '../components/common/Seo';
+
 export function TermsPage() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#FFFBF5' }}>
+      <Seo
+        title="Terms & Conditions | Window Seat Trails"
+        description="Read the terms and conditions for booking travel packages with Window Seat Trails."
+        path="/terms"
+      />
       <div className="text-white py-14 px-4" style={{ backgroundColor: '#3D2C2C' }}>
         <div className="max-w-4xl mx-auto">
           <p className="journal-label mb-2" style={{ color: '#F4A261' }}>Legal</p>

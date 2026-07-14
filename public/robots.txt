@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /customize/
+
+Sitemap: https://www.windowseattrails.com/sitemap.xml

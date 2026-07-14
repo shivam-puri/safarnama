@@ -5,6 +5,7 @@ import { CardSkeletonGrid } from '../components/common/LoadingSkeleton';
 import { DoodleMountain, DoodlePlane, DoodleStar } from '../components/common/Doodles';
 import { useAsync } from '../hooks/useAsync';
 import { publicApi } from '../lib/api';
+import { Seo } from '../components/common/Seo';
 
 const ALL_TAGS = ['mountains', 'lakes', 'honeymoon', 'snow', 'adventure', 'beaches', 'backwaters', 'nature', 'wellness', 'family', 'trekking'];
 
@@ -29,6 +30,11 @@ export function DestinationsPage() {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#FFFBF5' }}>
+      <Seo
+        title="All Destinations | Window Seat Trails"
+        description="Browse every destination on Window Seat Trails — from Himalayan mountains to Kerala's backwaters. Filter by type and find your perfect custom itinerary."
+        path="/destinations"
+      />
       {/* Page Header */}
       <div className="text-white py-16 px-4 relative overflow-hidden" style={{ backgroundColor: '#3D2C2C' }}>
         <DoodleMountain size={200} color="#FFFBF5" className="absolute right-0 bottom-0 pointer-events-none hidden md:block" opacity={0.08} />

@@ -5,6 +5,7 @@ import { CardSkeletonGrid } from '../components/common/LoadingSkeleton';
 import { useAsync } from '../hooks/useAsync';
 import { publicApi } from '../lib/api';
 import { getCategoryMeta } from '../lib/categories';
+import { Seo } from '../components/common/Seo';
 
 export function CategoryTripsPage() {
   const { category } = useParams<{ category: string }>();
@@ -19,6 +20,11 @@ export function CategoryTripsPage() {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#FFFBF5' }}>
+      <Seo
+        title={`${meta.label} Trips | Window Seat Trails`}
+        description={`Browse handpicked ${meta.label.toLowerCase()} itineraries across India, customized by Window Seat Trails.`}
+        path={`/trips/${category}`}
+      />
       <div className="text-white py-16 px-4 relative overflow-hidden" style={{ background: meta.gradient }}>
         <div className="max-w-7xl mx-auto relative">
           <Link to="/" className="inline-flex items-center gap-1.5 text-sm mb-4 text-white/80 hover:text-white">
