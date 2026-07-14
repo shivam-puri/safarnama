@@ -26,7 +26,7 @@ export function TermsPage() {
             ) : (
               <p className="leading-relaxed text-sm" style={{ color: '#5C4A3A' }}>
                 For any questions regarding these terms, please contact us at{' '}
-                <a href="mailto:legal@windowseat.com" className="hover:underline" style={{ color: '#5B7FA6' }}>legal@windowseat.com</a>.
+                <a href="mailto:window.seat.trails@gmail.com" className="hover:underline" style={{ color: '#5B7FA6' }}>window.seat.trails@gmail.com.</a>.
               </p>
             )}
           </div>

@@ -20,7 +20,7 @@ export function CancellationPage() {
         <div className="rounded-2xl p-4 mb-8" style={{ backgroundColor: '#FEF3E8', border: '1.5px solid #F4CEAD' }}>
           <p className="text-sm leading-relaxed" style={{ color: '#A06020' }}>
             <strong>Important:</strong> All cancellations must be submitted in writing to{' '}
-            <a href="mailto:bookings@windowseat.com" className="underline" style={{ color: '#A06020' }}>window.seat.trails@gmail.com</a>.
+            <a href="mailto:window.seat.trails@gmail.com" className="underline" style={{ color: '#A06020' }}>window.seat.trails@gmail.com</a>.
             Cancellation is effective from the date we receive written confirmation.
           </p>
         </div>
@@ -57,7 +57,7 @@ export function CancellationPage() {
             <h3 className="font-bold mb-2" style={{ color: '#3D2C2C' }}>How to Cancel</h3>
             <ol className="space-y-1 list-decimal list-inside leading-relaxed">
               <li>Email your booking reference number and cancellation request to{' '}
-                <a href="mailto:bookings@windowseat.com" className="hover:underline" style={{ color: '#5B7FA6' }}>bookings@windowseat.com</a>
+                <a href="mailto:window.seat.trails@gmail.com." className="hover:underline" style={{ color: '#5B7FA6' }}>window.seat.trails@gmail.com.</a>
               </li>
               <li>Our team will acknowledge your request within 4 business hours.</li>
               <li>Refund will be processed to the original payment method within 7–10 business days.</li>
