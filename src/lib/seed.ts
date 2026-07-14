@@ -279,7 +279,7 @@ const defaultCmsContent: CmsContentItem[] = [
 <p>We'd love to hear from you. Reach out to us through any of the following channels:</p>
 
 <p><strong>Phone:</strong> +91 98765 43210</p>
-<p><strong>Email:</strong> hello@somiltravel.com</p>
+<p><strong>Email:</strong> window.seat.trails@gmail.com</p>
 <p><strong>Address:</strong> 123 Travel House, Connaught Place, New Delhi - 110001</p>
 
 <p><strong>Office Hours:</strong> Monday to Saturday, 9 AM - 7 PM IST</p>`,
@@ -291,7 +291,7 @@ const defaultSettings: SiteSetting[] = [
   { key: 'company_name', label: 'Company Name', value: 'Window Seat', category: 'general' },
   { key: 'tagline', label: 'Tagline', value: 'Discover India, Your Way', category: 'general' },
   { key: 'contact_phone', label: 'Phone', value: '+91 98765 43210', category: 'contact' },
-  { key: 'contact_email', label: 'Email', value: 'hello@somiltravel.com', category: 'contact' },
+  { key: 'contact_email', label: 'Email', value: 'window.seat.trails@gmail.com', category: 'contact' },
   { key: 'contact_address', label: 'Address', value: '123 Travel House, Connaught Place, New Delhi - 110001', category: 'contact' },
   { key: 'instagram_url', label: 'Instagram URL', value: 'https://instagram.com/somiltravel', category: 'social' },
   { key: 'facebook_url', label: 'Facebook URL', value: 'https://facebook.com/somiltravel', category: 'social' },

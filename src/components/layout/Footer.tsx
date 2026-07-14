@@ -77,15 +77,16 @@ export function Footer() {
             <ul className="space-y-3">
               <li className="flex items-start gap-2 text-sm" style={{ color: '#A08070' }}>
                 <MapPin size={16} className="mt-0.5 shrink-0" style={{ color: '#F4A261' }} />
-                <span>123 Travel House, Connaught Place, New Delhi, 110001</span>
+                <span>104, Man Arch Apartment, Anoop Nagar, Indore 452011</span>
               </li>
               <li className="flex items-center gap-2 text-sm" style={{ color: '#A08070' }}>
                 <Phone size={16} className="shrink-0" style={{ color: '#F4A261' }} />
-                <a href="tel:+919876543210" className="transition-colors hover:text-[#F4A261]">+91 98765 43210</a>
+                <a href="tel:+917773862111" className="transition-colors hover:text-[#F4A261]">+91 77738 62111</a>
+                <a href="tel:+917773862111" className="transition-colors hover:text-[#F4A261]">+91 9301133682</a>
               </li>
               <li className="flex items-center gap-2 text-sm" style={{ color: '#A08070' }}>
                 <Mail size={16} className="shrink-0" style={{ color: '#F4A261' }} />
-                <a href="mailto:hello@windowseat.com" className="transition-colors hover:text-[#F4A261]">hello@windowseat.com</a>
+                <a href="mailto:window.seat.trails@gmail.com" className="transition-colors hover:text-[#F4A261]">window.seat.trails@gmail.com</a>
               </li>
             </ul>
           </div>

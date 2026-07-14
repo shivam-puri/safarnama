@@ -66,7 +66,7 @@ export function ContactPage() {
             </div>
             {[
               { icon: <Phone size={18} style={{ color: '#E8643C' }} />, label: 'Call Us', value: '+91 98765 43210', href: 'tel:+919876543210' },
-              { icon: <Mail size={18} style={{ color: '#E8643C' }} />, label: 'Email Us', value: 'hello@windowseat.com', href: 'mailto:hello@windowseat.com' },
+              { icon: <Mail size={18} style={{ color: '#E8643C' }} />, label: 'Email Us', value: 'window.seat.trails@gmail.com', href: 'mailto:window.seat.trails@gmail.com' },
               { icon: <MapPin size={18} style={{ color: '#E8643C' }} />, label: 'Visit Us', value: '123 Travel House, Connaught Place, New Delhi, 110001', href: null },
               { icon: <Clock size={18} style={{ color: '#E8643C' }} />, label: 'Working Hours', value: 'Mon–Sat: 9:00 AM – 7:00 PM IST', href: null },
             ].map((item, idx) => (
