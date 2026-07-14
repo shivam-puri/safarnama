@@ -23,7 +23,7 @@ export function DestinationCard({ destination }: DestinationCardProps) {
   const isComingSoon = Boolean(destination.isComingSoon);
 
   const content = (
-    <div className={`journal-card overflow-hidden ${isComingSoon ? 'opacity-75 grayscale' : ''}`}>
+    <div className={`journal-card overflow-hidden ${isComingSoon ? 'opacity-70' : ''}`}>
       {/* Image */}
       <div className="relative overflow-hidden h-52">
         <img
