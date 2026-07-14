@@ -24,7 +24,9 @@ export function CategoryTripsPage() {
           <Link to="/" className="inline-flex items-center gap-1.5 text-sm mb-4 text-white/80 hover:text-white">
             <ArrowLeft size={14} /> Back to home
           </Link>
-          <p className="journal-label mb-2 text-white/80">{meta.emoji} Category</p>
+          <p className="journal-label mb-2 text-white/80 flex items-center gap-1.5">
+            <meta.icon size={13} strokeWidth={2} /> Category
+          </p>
           <h1 className="text-3xl md:text-4xl font-bold mb-2" style={{ fontFamily: 'Caveat, cursive' }}>{meta.label} Trips</h1>
           <p className="max-w-xl text-white/80">Handpicked {meta.label.toLowerCase()} itineraries across all our destinations.</p>
         </div>

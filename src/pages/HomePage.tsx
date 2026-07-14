@@ -8,7 +8,19 @@ import { DoodlePlane, DoodleMountain, DoodleCompass, DoodleStar, DoodlePalmTree,
 import { CardSkeletonGrid } from '../components/common/LoadingSkeleton';
 import { useAsync } from '../hooks/useAsync';
 import { publicApi } from '../lib/api';
-import { CATEGORY_META } from '../lib/categories';
+import { FEATURED_CATEGORIES } from '../lib/categories';
+
+const BENTO_ORDER = ['school_trip', 'family', 'friends', 'adventure', 'honeymoon', 'corporate'];
+const BENTO_SPAN: Record<string, string> = {
+  school_trip: 'col-span-2 sm:col-span-2 sm:row-span-2',
+  corporate: 'col-span-2 sm:col-span-1',
+};
+const BENTO_TILT: Record<string, string> = {
+  family: '-rotate-2',
+  friends: 'rotate-1',
+  adventure: 'rotate-2',
+  honeymoon: '-rotate-1',
+};
 
 const HERO_IMAGES = [
   { url: 'https://i.pinimg.com/1200x/5d/c2/d3/5dc2d359af5a622136b87f2fd5eba5a5.jpg', alt: 'Travel Journal 1' },
@@ -194,18 +206,69 @@ export function HomePage() {
               From school trips to honeymoons — find itineraries curated for your kind of journey.
             </p>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-            {CATEGORY_META.map(cat => (
-              <Link
-                key={cat.value}
-                to={`/trips/${cat.value}`}
-                className="group rounded-2xl p-5 text-center text-white transition-transform hover:-translate-y-1 shadow-sm"
-                style={{ background: cat.gradient }}
-              >
-                <div className="text-3xl mb-2">{cat.emoji}</div>
-                <div className="text-sm font-semibold">{cat.label}</div>
-              </Link>
-            ))}
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-5 sm:[grid-auto-flow:dense] sm:[grid-auto-rows:9.5rem] lg:[grid-auto-rows:11rem]">
+            {BENTO_ORDER.map(value => {
+              const cat = FEATURED_CATEGORIES.find(c => c.value === value)!;
+              const isBig = value === 'school_trip';
+              const span = BENTO_SPAN[value] ?? 'col-span-1';
+              const tilt = BENTO_TILT[value] ?? '';
+
+              if (isBig) {
+                return (
+                  <Link
+                    key={cat.value}
+                    to={`/trips/${cat.value}`}
+                    className={`journal-card group relative overflow-hidden flex flex-col items-center justify-center text-center gap-2 p-6 ${span}`}
+                    style={{ backgroundColor: 'var(--color-bg-warm)' }}
+                  >
+                    <span
+                      className="absolute top-3 right-3 text-[0.65rem] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full"
+                      style={{ backgroundColor: 'var(--color-cta)', color: '#fff' }}
+                    >
+                      Most Loved
+                    </span>
+                    <div
+                      className="w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center transition-transform group-hover:scale-105 mb-1"
+                      style={{ backgroundColor: '#fff', border: '1.5px solid var(--color-border)', boxShadow: '3px 3px 0 var(--color-border)' }}
+                    >
+                      <cat.icon size={32} strokeWidth={1.5} style={{ color: cat.color }} />
+                    </div>
+                    <div className="text-xl sm:text-2xl font-bold" style={{ color: 'var(--color-ink)', fontFamily: 'Caveat, cursive' }}>{cat.label} Trips</div>
+                    <p className="text-sm max-w-[16rem]" style={{ color: 'var(--color-ink-muted)' }}>
+                      Safe, supervised group itineraries built for classrooms and campuses.
+                    </p>
+                    <div
+                      className="flex items-center gap-1 text-xs font-semibold mt-1 transition-transform group-hover:translate-x-1"
+                      style={{ color: 'var(--color-cta)' }}
+                    >
+                      Explore <ArrowRight size={12} />
+                    </div>
+                  </Link>
+                );
+              }
+
+              return (
+                <Link
+                  key={cat.value}
+                  to={`/trips/${cat.value}`}
+                  className={`journal-card group flex flex-col items-center justify-center text-center gap-3 p-5 transition-transform hover:!rotate-0 ${span} ${tilt}`}
+                >
+                  <div
+                    className="w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center transition-transform group-hover:scale-105"
+                    style={{ backgroundColor: 'var(--color-bg-warm)', border: '1.5px solid var(--color-border)', boxShadow: '3px 3px 0 var(--color-border)' }}
+                  >
+                    <cat.icon size={26} strokeWidth={1.5} style={{ color: cat.color }} />
+                  </div>
+                  <div className="text-sm sm:text-base font-bold" style={{ color: 'var(--color-ink)' }}>{cat.label}</div>
+                  <div
+                    className="flex items-center gap-1 text-xs font-semibold opacity-0 -translate-y-1 transition-all group-hover:opacity-100 group-hover:translate-y-0"
+                    style={{ color: 'var(--color-cta)' }}
+                  >
+                    Explore <ArrowRight size={12} />
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
+import { FEATURED_CATEGORIES } from '../../lib/categories';
 
 interface NavbarProps {
   transparent?: boolean;
@@ -9,6 +10,8 @@ interface NavbarProps {
 export function Navbar({ transparent = false }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [tripsOpen, setTripsOpen] = useState(false);
+  const [mobileTripsOpen, setMobileTripsOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -53,6 +56,53 @@ export function Navbar({ transparent = false }: NavbarProps) {
                 {link.label}
               </Link>
             ))}
+
+            {/* Trips — hover dropdown of categories */}
+            <div
+              className="relative"
+              onMouseEnter={() => setTripsOpen(true)}
+              onMouseLeave={() => setTripsOpen(false)}
+            >
+              <button
+                type="button"
+                onClick={() => setTripsOpen(o => !o)}
+                className={`flex items-center gap-1 text-sm font-semibold transition-colors hover:text-[#E8643C] ${
+                  location.pathname.startsWith('/trips') ? 'text-[#E8643C]' : textColor
+                }`}
+              >
+                Trips <ChevronDown size={14} className={`transition-transform ${tripsOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {tripsOpen && (
+                <div
+                  className="absolute left-1/2 -translate-x-1/2 top-full pt-3 w-72"
+                  onMouseEnter={() => setTripsOpen(true)}
+                  onMouseLeave={() => setTripsOpen(false)}
+                >
+                  <div
+                    className="rounded-2xl p-3 grid grid-cols-2 gap-1"
+                    style={{ backgroundColor: '#FFFBF5', border: '1.5px solid #E8D5C4', boxShadow: '4px 4px 0 #E8D5C4' }}
+                  >
+                    {FEATURED_CATEGORIES.map(cat => (
+                      <Link
+                        key={cat.value}
+                        to={`/trips/${cat.value}`}
+                        onClick={() => setTripsOpen(false)}
+                        className="flex items-center gap-2 px-2.5 py-2 rounded-xl transition-colors hover:bg-[#FFF5EC]"
+                      >
+                        <span
+                          className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center"
+                          style={{ backgroundColor: '#FFF5EC', border: '1.5px solid #E8D5C4' }}
+                        >
+                          <cat.icon size={15} strokeWidth={1.75} style={{ color: cat.color }} />
+                        </span>
+                        <span className="text-sm font-semibold" style={{ color: '#3D2C2C' }}>{cat.label}</span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* CTA + mobile toggle */}
@@ -86,6 +136,39 @@ export function Navbar({ transparent = false }: NavbarProps) {
                 {link.label}
               </Link>
             ))}
+
+            {/* Trips — expandable category list */}
+            <button
+              type="button"
+              onClick={() => setMobileTripsOpen(o => !o)}
+              className="w-full flex items-center justify-between px-4 py-2.5 text-sm font-semibold rounded-xl transition-colors"
+              style={{ color: '#5C4A3A' }}
+            >
+              Trips
+              <ChevronDown size={16} className={`transition-transform ${mobileTripsOpen ? 'rotate-180' : ''}`} />
+            </button>
+            {mobileTripsOpen && (
+              <div className="px-4 pb-1 grid grid-cols-2 gap-2">
+                {FEATURED_CATEGORIES.map(cat => (
+                  <Link
+                    key={cat.value}
+                    to={`/trips/${cat.value}`}
+                    onClick={() => { setMobileOpen(false); setMobileTripsOpen(false); }}
+                    className="flex items-center gap-2 px-2.5 py-2 rounded-xl transition-colors"
+                    style={{ backgroundColor: '#FFF5EC' }}
+                  >
+                    <span
+                      className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center"
+                      style={{ backgroundColor: '#FFFBF5', border: '1.5px solid #E8D5C4' }}
+                    >
+                      <cat.icon size={13} strokeWidth={1.75} style={{ color: cat.color }} />
+                    </span>
+                    <span className="text-xs font-semibold" style={{ color: '#3D2C2C' }}>{cat.label}</span>
+                  </Link>
+                ))}
+              </div>
+            )}
+
             <div className="px-4 pt-2">
               <Link
                 to="/destinations"
